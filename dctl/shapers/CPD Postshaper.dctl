@@ -1,0 +1,26 @@
+// V3_250D_PD_postshaper_normD_to_OD.dctl
+// POST-shaper for V3_250D_PrintingDensity_RP180.cube  (node AFTER the cube).
+// Normalised printing density [0,1] -> *DMAX -> RP 180 printing density (OD).
+//
+// DMAX = 3.30 is LOAD-BEARING: it must match the cube and the pre-shaper exactly.
+//
+// Encode: 0 = printing density as OD (linear node value)
+//         1 = normalised Cineon code value  (95 + D/0.002)/1023
+
+DEFINE_UI_PARAMS(encode, Encode, DCTLUI_CHECK_BOX, 0)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    const float DMAX = 3.30f;
+
+    float pR = p_R * DMAX;
+    float pG = p_G * DMAX;
+    float pB = p_B * DMAX;
+
+    if (encode) {
+        pR = (95.0f + pR/0.002f)/1023.0f;
+        pG = (95.0f + pG/0.002f)/1023.0f;
+        pB = (95.0f + pB/0.002f)/1023.0f;
+    }
+    return make_float3(pR, pG, pB);
+}

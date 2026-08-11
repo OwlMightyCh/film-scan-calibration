@@ -1,0 +1,71 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+SPDX-License-Identifier: CC-BY-4.0
+
+Copyright (c) 2026 OwlMightyCh
+
+
+SCOPE
+
+This licence covers the DATA and GENERATED TRANSFORMS in this repository:
+
+    the .cube LUTs (Status M / RP 180 / XYZ transforms, print emulation),
+                distributed as release assets rather than in the repo tree
+    data/       digitized datasheet curves, spectral dye densities, spectral
+                sensitivities, paper characteristics, and derived fits
+
+The software that produces them (engine/, dctl/, documentation) is licensed
+separately under the MIT License — see LICENSE.
+
+
+LICENCE TEXT
+
+The full legal text is not reproduced here, to avoid any transcription error in
+a legal instrument. The authoritative text is published by Creative Commons at:
+
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+and the human-readable summary at:
+
+    https://creativecommons.org/licenses/by/4.0/
+
+That published text governs. This file identifies the licence and the material
+it applies to.
+
+
+WHAT YOU MUST DO
+
+You may share and adapt this material, including commercially, provided you
+give appropriate credit, link to the licence, and indicate if changes were
+made. A sufficient attribution is:
+
+    Film Scan Calibration by OwlMightyCh, CC BY 4.0
+    https://github.com/OwlMightyCh/<repository>
+
+You may not apply legal terms or technological measures that legally restrict
+others from doing anything the licence permits.
+
+
+WHAT THIS LICENCE DOES NOT COVER
+
+1. Manufacturer datasheets. The Kodak and Fujifilm datasheets from which this
+   data was digitized are the copyright of their respective publishers. They
+   are NOT distributed with this repository and are NOT licensed here. See
+   DATASHEETS.md.
+
+2. The underlying measurements. This licence covers this project's digitization
+   and modelling of published curves — the tracing, the fits, the derived
+   spectral data and the transforms built from them. It makes no claim over the
+   manufacturers' original published measurements, and it cannot grant rights
+   in them.
+
+3. Third-party LUTs. Any pre-built LUT from an outside source retains its own
+   licence and is not relicensed by this file.
+
+
+NO WARRANTY
+
+This material is provided as-is. It is derived from published datasheets and
+is verified only against itself; no part of the C-41 chain has been validated
+against a measured reference. See the "Known limitations" section of
+PROJECT.md before relying on it for critical work.

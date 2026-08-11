@@ -1,0 +1,44 @@
+// Density_to_Linear.dctl
+// View/linearization node for the reversal (D50-XYZ) density corridor.
+// PLACE IMMEDIATELY AFTER the postshaper (input = colorimetric density, actual OD units, ~0-4).
+// Computes linear transmittance  T = 10^-(D)  — the light-table view of the slide.
+// Output: scene/display-linear, same primaries as the corridor (scanner-native
+// unless you've converted). Follow with your CST / display transform.
+//
+// Controls (all operate IN DENSITY, i.e. printer-light-style, and are AESTHETIC —
+// they sit above the metric; defaults are a pure 10^-D):
+//   Master Offset  : global density offset. Negative = brighter. Use to place
+//                    exposure. 0.30 density = 1 stop.
+//   R/G/B Offset   : per-channel density trims (white balance / CC filtration).
+//   Output Gain    : linear-domain scale AFTER 10^-D, for fitting the result
+//                    into your working range (e.g. lifting a dense slide's
+//                    peak transmittance toward 1.0). Purely a scale, no curve.
+//
+// NOTE: replaces the NamiColor node previously in this slot. NamiColor's
+// -log10 on density computed log-of-a-log — a monotone flip but not the
+// correct tone reproduction. This is the exact inverse of the density encoding.
+
+DEFINE_UI_PARAMS(masterOffset, MasterOffset, DCTLUI_SLIDER_FLOAT, 0.0, -1.0, 1.0, 0.01)
+DEFINE_UI_PARAMS(rOffset, ROffset, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.005)
+DEFINE_UI_PARAMS(gOffset, GOffset, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.005)
+DEFINE_UI_PARAMS(bOffset, BOffset, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.005)
+DEFINE_UI_PARAMS(outputGain, OutputGain, DCTLUI_SLIDER_FLOAT, 1.0, 0.1, 8.0, 0.01)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    // density in, offsets applied in density space
+    float dR = p_R + masterOffset + rOffset;
+    float dG = p_G + masterOffset + gOffset;
+    float dB = p_B + masterOffset + bOffset;
+
+    // clamp to physical density range (postshaper domain is 0-6.0 reversal / 0-3.3 CPD; allow offset headroom)
+    dR = _fmaxf(dR, 0.0f);
+    dG = _fmaxf(dG, 0.0f);
+    dB = _fmaxf(dB, 0.0f);
+
+    float3 out;
+    out.x = outputGain * _powf(10.0f, -dR);
+    out.y = outputGain * _powf(10.0f, -dG);
+    out.z = outputGain * _powf(10.0f, -dB);
+    return out;
+}

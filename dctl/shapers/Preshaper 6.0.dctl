@@ -1,0 +1,12 @@
+// Preshaper 6.0.dctl -- linear scan -> density/6.0 (REVERSAL CORRIDOR)
+// Place BEFORE the reversal *_XYZ_D50 cubes. DMAX 6.0, NOT interchangeable with other corridors.
+// Supersedes the 4.5 pair (2026-07-26). Crossing corridors rescales density SILENTLY -- see register #5.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    const float eps = 1e-6f;
+    float3 out;
+    out.x = _fminf(_fmaxf(-_log10f(_fmaxf(p_R, eps)), 0.0f), 6.0f) / 6.0f;
+    out.y = _fminf(_fmaxf(-_log10f(_fmaxf(p_G, eps)), 0.0f), 6.0f) / 6.0f;
+    out.z = _fminf(_fmaxf(-_log10f(_fmaxf(p_B, eps)), 0.0f), 6.0f) / 6.0f;
+    return out;
+}

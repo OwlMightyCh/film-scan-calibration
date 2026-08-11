@@ -1,0 +1,18 @@
+{
+  "worktree": {
+    "bgIsolation": "none"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git add -A 2>/dev/null; git diff --cached --quiet 2>/dev/null || git commit -q -m \"Auto-snapshot $(date '+%Y-%m-%d %H:%M:%S')\" 2>/dev/null; true",
+            "statusMessage": "Auto-committing changes..."
+          }
+        ]
+      }
+    ]
+  }
+}

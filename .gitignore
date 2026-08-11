@@ -1,0 +1,39 @@
+# --- Large binary capture / scan data (multi-GB, regenerable, not source) ---
+scan/
+gain_ratio_analysis/
+*.ARW
+*.arw
+*.exr
+*.tif
+*.tiff
+
+# Diagnostic / preview images
+*.jpg
+*.jpeg
+*.png
+
+# --- Generated engine outputs ---
+out/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- macOS ---
+.DS_Store
+
+# Claude Code linked worktrees — transient, never version them
+.claude/worktrees/
+
+# Basis-sensitivity ensemble artifacts — reproducible diagnostics, not deliverables
+builds/_ensemble/
+builds/_forensics/
+data/films/_ensemble/
+
+# --- Manufacturer datasheets (copyright Kodak / Kodak Alaris / Fujifilm) ---
+# Not redistributed. See DATASHEETS.md for how to obtain each sheet; restore
+# them to these paths to re-run the digitizers in engine/.
+film_datasheet/*.pdf
+paper_datasheet/*.pdf
+knowledge/Kodak LAD.pdf

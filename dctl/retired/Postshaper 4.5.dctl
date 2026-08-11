@@ -1,0 +1,16 @@
+// Postshaper 4.5.dctl -- cube output/4.5 -> colorimetric density OD (REVERSAL CORRIDOR) -- RETIRED 2026-07-26
+//
+// *** RETIRED. Do NOT pair with the current reversal cubes. ***
+// The shipped *_XYZ_D50 cubes moved to a 6.0 corridor on 2026-07-26; use
+// "Preshaper 6.0.dctl" / "Postshaper 6.0.dctl" instead. Feeding a 6.0-corridor
+// cube through this node rescales density by 4.5/6.0 with NO error or warning
+// -- the exact silent-mismatch failure register #5 describes.
+// Kept only to reprocess projects still on the pre-2026-07-26 cubes.
+//
+// Place AFTER the reversal *_XYZ_D50 cubes. Pairs with Preshaper 4.5 (DMAX 4.5).
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float3 out;
+    out.x = p_R * 4.5f; out.y = p_G * 4.5f; out.z = p_B * 4.5f;
+    return out;
+}

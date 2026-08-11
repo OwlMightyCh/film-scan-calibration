@@ -1,0 +1,43 @@
+// Printer Lights Cineon.dctl — per-channel density trims on Cineon code values
+//
+// Place AFTER "CPD Postshaper.dctl" (with its Encode checkbox ON, so the
+// signal is normalized Cineon CV) and BEFORE the CST that decodes Cineon
+// Film Log to the timeline space.
+//
+// This is the AESTHETIC slot of the ECN-2 chain (metric/aesthetic
+// separation): a raw Cineon decode without printer lights always carries
+// the stock's balance offset — that residual cast is removed here, not in
+// the anchor, shapers, or cube. Trims are entered in DENSITY (OD):
+// +0.30 D on a channel ≈ 1 stop more of that color in the decoded
+// positive; negative reduces it. Master shifts all three (exposure).
+//
+// Dial once per stock/rig on a known neutral, then reuse across rolls.
+// Per-stock presets (datasheet-derived, engine/ecn2/printer_lights_preset.py —
+// gray card at the sensitometric curves' camera-stop-0 point, datasheet
+// illuminant; scenes shot under other light still need a trim on top):
+//   V3 500T (tungsten ref):  R +0.033   G -0.057   B +0.024   (zero-mean)
+//   Revised 2026-07-28 with the corrected Vision3 dye basis (was R +0.028
+//   G -0.077 B +0.049). The old basis flattened cyan to 0.02 D across
+//   400-450 nm where the chart shows a real descender from ~0.21, and that
+//   band carries 69% of Status M blue weight -- so it understated cyan's
+//   blue absorption. B moves most, as expected; R-referenced B even flips
+//   sign (+0.021 -> -0.009). The empirical roll balance below is unaffected:
+//   it was measured, not derived.
+// Empirical roll balances (illuminant included, supersede the preset when
+// the shooting light differs from the datasheet reference):
+//   first ECN-2 roll, daylight no 85 filter, white wall (2026-07-23):
+//   R 0.000   G -0.323   B +0.070
+
+DEFINE_UI_PARAMS(trimR, Trim R density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(trimG, Trim G density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(trimB, Trim B density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(master, Master density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    // density -> normalized Cineon CV: 0.002 D per code value, 1023 full scale
+    const float D_TO_CV = 1.0f / (0.002f * 1023.0f);
+    return make_float3(p_R + (trimR + master) * D_TO_CV,
+                       p_G + (trimG + master) * D_TO_CV,
+                       p_B + (trimB + master) * D_TO_CV);
+}

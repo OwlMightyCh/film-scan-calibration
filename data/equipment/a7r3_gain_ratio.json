@@ -1,0 +1,44 @@
+{
+ "title": "a7R III dual-conversion-gain cross-ratio, ISO 640 vs ISO 100",
+ "measured": "2026-07-17",
+ "method": "3 interleaved frame pairs, broadband W LED, 1/2000 s f/8 fixed; central-50% ROI, 1-99 percentile trimmed means per CFA channel (the anchor engine's numeric core, then roll_anchor_extractor.py, merged into roll_anchor_gui.py 2026-07-22); ratio = ISO640/ISO100 per pair, averaged",
+ "files": [
+  "100_a.ARW",
+  "100_b.ARW",
+  "100_c.ARW",
+  "640_a.ARW",
+  "640_b.ARW",
+  "640_c.ARW"
+ ],
+ "nominal_ratio": 6.4,
+ "gain_ratio": {
+  "R": 6.28897,
+  "G": 6.29428,
+  "B": 6.274
+ },
+ "per_pair": {
+  "R": [
+   6.28416,
+   6.29005,
+   6.29271
+  ],
+  "G": [
+   6.29003,
+   6.29361,
+   6.2992
+  ],
+  "B": [
+   6.26977,
+   6.27405,
+   6.27818
+  ]
+ },
+ "pair_spread_pct": {
+  "R": 0.136,
+  "G": 0.1457,
+  "B": 0.1341
+ },
+ "usage": "divide an ISO 640 frame's shutter-normalized linear rate by gain_ratio[ch] to express it on the ISO 100 scale (Dmax vs ISO 100 plain-light reference)",
+ "caveat": "re-measure if camera body or firmware changes; shutter was 1/2000 s \u2014 PWM beat risk was checked via the per-pair spread below",
+ "location_note": "rig constant, lives in data/equipment/ (moved 2026-07-17 from gain_ratio_analysis/, where the source ARWs remain as provenance)"
+}
