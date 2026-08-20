@@ -1,0 +1,105 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+SPDX-License-Identifier: CC-BY-4.0
+
+Copyright (c) 2026 OwlMightyCh
+
+
+SCOPE
+
+This licence covers the DATA and GENERATED TRANSFORMS in this repository:
+
+    the .cube LUTs (Status M / RP 180 / XYZ transforms, print emulation),
+                distributed as release assets rather than in the repo tree
+    data/       digitized datasheet curves, spectral dye densities, spectral
+                sensitivities, paper characteristics, and derived fits,
+                EXCEPT data/cameras/ and data/standards/, which hold
+                third-party material and are covered by points 3 and 4 under
+                WHAT THIS LICENCE DOES NOT COVER
+
+The software that produces them (engine/, dctl/, documentation) is licensed
+separately under the MIT License — see LICENSE.
+
+
+LICENCE TEXT
+
+The full legal text is not reproduced here, to avoid any transcription error in
+a legal instrument. The authoritative text is published by Creative Commons at:
+
+    https://creativecommons.org/licenses/by/4.0/legalcode
+
+and the human-readable summary at:
+
+    https://creativecommons.org/licenses/by/4.0/
+
+That published text governs. This file identifies the licence and the material
+it applies to.
+
+
+WHAT YOU MUST DO
+
+You may share and adapt this material, including commercially, provided you
+give appropriate credit, link to the licence, and indicate if changes were
+made. A sufficient attribution is:
+
+    Film Scan Calibration by OwlMightyCh, CC BY 4.0
+    https://github.com/OwlMightyCh/<repository>
+
+You may not apply legal terms or technological measures that legally restrict
+others from doing anything the licence permits.
+
+
+WHAT THIS LICENCE DOES NOT COVER
+
+1. Manufacturer datasheets. The Kodak and Fujifilm datasheets from which this
+   data was digitized are the copyright of their respective publishers. They
+   are NOT distributed with this repository and are NOT licensed here. See
+   DATASHEETS.md.
+
+2. The underlying measurements. This licence covers this project's digitization
+   and modelling of published curves — the tracing, the fits, the derived
+   spectral data and the transforms built from them. It makes no claim over the
+   manufacturers' original published measurements, and it cannot grant rights
+   in them.
+
+3. The camera spectral sensitivities in data/cameras/. These originate in the
+   AcademySoftwareFoundation/rawtoaces-data repository and are licensed
+   Apache-2.0, not CC BY 4.0. Their values are reproduced verbatim, only the
+   arrangement of the numbers having changed. Every file carries that notice,
+   its source URL, and the SHA-256 of the bytes it was built from. The
+   authoritative licence text is published at:
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   and data/cameras/README.md records the provenance, the modification, and
+   the limits of the data.
+
+4. The reference spectra and standards tables in data/standards/. These are
+   third-party material reproduced in order to compute with it, and are neither
+   this project's measurements nor its tracing of anything:
+
+       reflectance/    the Munsell glossy and matt sets (University of Eastern
+                       Finland, via the colour-science Zenodo deposits), the
+                       Agfa IT8.7/2 target (Marszalec, UEF), and the NIST
+                       Reference Data Set of Human Skin Reflectance (Cooksey,
+                       Allen and Tsai 2017, doi:10.6028/jres.122.026)
+
+       the responsivity and colour-matching tables transcribed from ISO 5-3
+                       (Status M, Status A), SMPTE RP 180-1999, and the CIE
+                       1931 2-degree observer with D50
+
+   Each retains the rights of its own publisher or depositor; only the
+   arrangement of the numbers is this project's. Provenance for every
+   reflectance set, including the resampling applied, is recorded in
+   data/standards/reflectance/README.md.
+
+5. Third-party LUTs. Any pre-built LUT from an outside source retains its own
+   licence and is not relicensed by this file.
+
+
+NO WARRANTY
+
+This material is provided as-is. It is derived from published datasheets and
+is verified only against itself; no part of the C-41 chain has been validated
+against a measured reference. See the "Known limitations" section of
+PROJECT.md before relying on it for critical work.

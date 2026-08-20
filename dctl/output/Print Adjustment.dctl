@@ -1,0 +1,146 @@
+// Print Adjustment.dctl -- gamma / gain on the negative, before a print cube
+//
+// PLACE IMMEDIATELY BEFORE a print-emulation cube. Nothing here is bound to a
+// particular paper: it needs only that the incoming signal is NORMALIZED STATUS
+// M DENSITY, k = OD / DMAX, D-min excluded, which is the shared input domain of
+// the print branch. On the C-41 chain that means between
+//   builds/c41/<Stock>_StatusM.cube                        (scanner -> Status M)
+//   builds/c41/print_endura/<Stock>_to_PortraEndura_*.cube    (Kodak negatives)
+//   builds/c41/print_fuji/<Stock>_to_FujiProLaser_*.cube      (Fujifilm negatives)
+// -- the pairing rule is Kodak film -> Endura, Fujifilm film -> Fuji paper --
+// and it will sit in front of any future paper built by PrintEmulationEngine
+// on the same corridor (DMAX 3.30).
+//
+// Density is NOT linear light and NOT a display encoding, so do not reach for a
+// normal gain/gamma tool at this node -- Resolve's would be operating on the
+// wrong quantity. Defaults are a bit-exact no-op.
+//
+// Two things follow from the domain, and both surprise people:
+//
+//  1. DENSITY RUNS BACKWARDS. Higher k = a denser negative = less light through
+//     the enlarger = a LIGHTER print. Raise Gain and the print gets brighter.
+//     True of any negative-to-print path, whatever the paper.
+//  2. THE PRINTABLE WINDOW IS NARROW, and it is a property of the PAPER, not
+//     of the negative -- measured identical across all five stocks on each
+//     paper (2026-08-10, on the shipped 65^3 DisplayP3 cubes; criterion is
+//     neutral-ramp slope > 1% of its peak, resolvable to the 0.0156 node step):
+//
+//       Endura Premier   k in [0.109, 0.391] = 0.93 OD   0.39 stop per 0.01 k
+//       Fuji Pro Laser   k in [0.062, 0.406] = 1.13 OD   0.33 stop per 0.01 k
+//
+//     Fuji is the lower-contrast paper: ~0.2 OD more room, almost all of it at
+//     the shadow end. A move of 0.01 k is about a third of a stop on either --
+//     so these really are small numbers. Outside the window it clips to paper
+//     white / max black, as a real RA-4 print does.
+//
+// Mode 1 -- DARKROOM (Literal Pow OFF, the default). The one to reach for.
+//
+//   k = pivot + (k - pivot) * gamma + gain
+//
+//   Gain  is a pure density offset: enlarger exposure. It slides the ramp along
+//         logE without changing its slope.
+//   Gamma is contrast about Pivot, which holds still while the ends fan out.
+//         Pivot defaults to 0.22 = mid-gray, the k that renders Y = 0.18, and
+//         that is true on EVERY cube in the fleet -- measured k = 0.2199 on all
+//         ten, both papers, spread 0.0000 (2026-08-10). It cannot drift,
+//         because K_MID is an INPUT to the gray-axis lock, not an output: with
+//         mid_anchor="luminance" the lock solves the balancing offsets so that
+//         K_MID lands on Y = 0.18 whatever the negative and whatever the paper,
+//         and fuji_print_engine.py imports K_MID rather than defining its own.
+//         *** If K_MID in endura_print_engine.py ever changes, this default
+//         must change with it. *** To pivot elsewhere, stay inside the window
+//         above: on Endura ~0.15 is a shadow pivot and ~0.32 a highlight one;
+//         Fuji's wider window allows ~0.10 and ~0.35.
+//
+// Mode 2 -- LITERAL (Literal Pow ON).
+//
+//   k = (1 + gain) * k ^ gamma
+//
+//   The plain power law, for when you want exactly that. Be aware of what it
+//   does here: the fixed point of a power law is k = 1.0, and the whole image
+//   sits below k = 0.41 (see the windows above), so Gamma reads mostly as a
+//   large BRIGHTNESS shift
+//   rather than as contrast -- at gamma 0.9, k 0.22 -> 0.257 and k 0.10 ->
+//   0.126, i.e. both ends move the same way. It cannot open or close the tonal
+//   range the way the pivoted slope can. Gain becomes a multiplier, written as
+//   1 + gain so that 0.0 stays a no-op in both modes.
+//
+// PER-CHANNEL TRIM, both modes: Gain R/G/B are density offsets added after the
+// master. A per-channel density offset at this node IS printer-lights colour
+// balance -- the same physical knob as PrintConfig.printer_lights in
+// PrintEmulationEngine, but live, with no cube rebuild. Sign follows the
+// master: +R = more red density in the negative = a print with MORE red.
+//
+// *** TRAP: Gain R/G/B is ALSO the same knob as the roll anchor. ***
+//
+// RollAnchor_ScanPrep.dctl removes the roll's D-min as a per-channel density
+// offset. Gain R/G/B adds one back. Nothing downstream can tell the two apart,
+// so a wrong anchor and a deliberate printer-light trim look identical here --
+// and the anchor error is silently correctable at this node.
+//
+// Do not correct it here. The two belong to different stages and the split is
+// load-bearing:
+//
+//   ANCHOR   physical, ONE setting for the whole roll, measured not judged
+//            (roll_anchor_gui.py reads the actual clear base). Get it right
+//            once and every frame on the roll is right.
+//   THIS DCTL  interpretive, per shot or per timeline, judged by eye.
+//
+// Fix a colour cast here and you have made a per-frame correction to a per-roll
+// physical error: it now travels with the grade, has to be redone on every
+// clip, and drifts between them, while the anchor stays wrong. If a neutral
+// will not sit neutral with the trims at zero, the anchor is the thing to
+// revisit -- re-measure it, do not dial it out. (Same reasoning as the flare /
+// printer-lights placement in PrintEmulationEngine: a control belongs at the
+// stage whose physics it describes.)
+//
+// Output is clamped to [0, 1], the cube's input domain. Clipping to 0 is a real
+// consequence (no such thing as negative density), not a guard.
+//
+// Written in a deliberately plain style (single transform(), no helper
+// functions, no __CONSTANT__, no combo box, ASCII only) because Resolve
+// rejected richer DCTLs here with "main DCTL function has wrong arguments".
+
+DEFINE_UI_PARAMS(gamma, Gamma, DCTLUI_SLIDER_FLOAT, 1.0, 0.5, 2.0, 0.01)
+DEFINE_UI_PARAMS(gain, Gain, DCTLUI_SLIDER_FLOAT, 0.0, -0.1, 0.1, 0.001)
+DEFINE_UI_PARAMS(pivot, Pivot, DCTLUI_SLIDER_FLOAT, 0.22, 0.05, 0.5, 0.01)
+DEFINE_UI_PARAMS(gainR, Gain R, DCTLUI_SLIDER_FLOAT, 0.0, -0.05, 0.05, 0.001)
+DEFINE_UI_PARAMS(gainG, Gain G, DCTLUI_SLIDER_FLOAT, 0.0, -0.05, 0.05, 0.001)
+DEFINE_UI_PARAMS(gainB, Gain B, DCTLUI_SLIDER_FLOAT, 0.0, -0.05, 0.05, 0.001)
+DEFINE_UI_PARAMS(literal, Literal Pow, DCTLUI_CHECK_BOX, 0)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    if (gamma == 1.0f && gain == 0.0f && gainR == 0.0f && gainG == 0.0f && gainB == 0.0f)
+    {
+        return make_float3(p_R, p_G, p_B);
+    }
+
+    float r = p_R;
+    float g = p_G;
+    float b = p_B;
+
+    if (literal)
+    {
+        float m = 1.0f + gain;
+        r = m * _powf(_fmaxf(r, 0.0f), gamma);
+        g = m * _powf(_fmaxf(g, 0.0f), gamma);
+        b = m * _powf(_fmaxf(b, 0.0f), gamma);
+    }
+    else
+    {
+        r = pivot + (r - pivot) * gamma + gain;
+        g = pivot + (g - pivot) * gamma + gain;
+        b = pivot + (b - pivot) * gamma + gain;
+    }
+
+    r = r + gainR;
+    g = g + gainG;
+    b = b + gainB;
+
+    r = _fminf(_fmaxf(r, 0.0f), 1.0f);
+    g = _fminf(_fmaxf(g, 0.0f), 1.0f);
+    b = _fminf(_fmaxf(b, 0.0f), 1.0f);
+
+    return make_float3(r, g, b);
+}

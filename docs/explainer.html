@@ -1,0 +1,453 @@
+<title>How this film scanner calibration works</title>
+<style>
+:root{
+  --ground:#F3F5F6; --panel:#FFFFFF; --sunk:#E8ECEE;
+  --ink:#161A1D; --ink-2:#454F56; --ink-3:#6B767E; --rule:#D3DADE;
+  --accent:#B4531C; --accent-soft:#F0DCCE;
+  --cy:#0398CD; --mg:#9E174B; --ye:#BB8300;
+  --paper-a:#B4531C; --paper-b:#2E6FA8;
+  --band:rgba(180,83,28,.13);
+  --shadow:0 1px 2px rgba(22,26,29,.05),0 6px 20px -12px rgba(22,26,29,.22);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181C; --panel:#1B2126; --sunk:#232A30;
+    --ink:#E6EAEC; --ink-2:#AEB9C0; --ink-3:#7C878E; --rule:#2E373E;
+    --accent:#D2762F; --accent-soft:#3A2A1D;
+    --cy:#009BDE; --mg:#BE296A; --ye:#C78200;
+    --paper-a:#D2762F; --paper-b:#4E9BD4;
+    --band:rgba(210,118,47,.16);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181C; --panel:#1B2126; --sunk:#232A30;
+  --ink:#E6EAEC; --ink-2:#AEB9C0; --ink-3:#7C878E; --rule:#2E373E;
+  --accent:#D2762F; --accent-soft:#3A2A1D;
+  --cy:#009BDE; --mg:#BE296A; --ye:#C78200;
+  --paper-a:#D2762F; --paper-b:#4E9BD4;
+  --band:rgba(210,118,47,.16);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",ui-serif,Georgia,serif}
+.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.measure{max-width:64ch}
+h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",ui-serif,Georgia,serif;
+  text-wrap:balance;font-weight:600;line-height:1.14;margin:0}
+h1{font-size:clamp(2.3rem,5.4vw,3.6rem);letter-spacing:-.017em}
+h2{font-size:clamp(1.5rem,2.9vw,2rem);letter-spacing:-.011em;margin-top:0}
+h3{font-size:1.13rem;letter-spacing:-.004em}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+strong{font-weight:650}
+.eyebrow{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+
+/* ── masthead ─────────────────────────────────────────────── */
+header{border-bottom:1px solid var(--rule);background:var(--panel)}
+.head-in{display:flex;flex-direction:column;gap:26px;padding:64px 0 54px}
+.lede{font-size:1.19rem;color:var(--ink-2);display:flex;flex-direction:column;gap:16px}
+.strip{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:var(--sunk)}
+.strip div{flex:1 1 130px;padding:13px 16px;background:var(--panel);border-right:1px solid var(--rule)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-size:1.32rem;letter-spacing:-.02em}
+.strip span{font-size:.74rem;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase}
+
+main{display:flex;flex-direction:column;gap:0}
+section{padding:58px 0;border-bottom:1px solid var(--rule)}
+.sec-in{display:flex;flex-direction:column;gap:22px}
+
+/* ── figures ──────────────────────────────────────────────── */
+figure{margin:0;background:var(--panel);border:1px solid var(--rule);border-radius:9px;
+  box-shadow:var(--shadow);overflow:hidden}
+.fig-head{padding:18px 22px 0;display:flex;flex-direction:column;gap:5px}
+.fig-head h3{font-size:1.03rem}
+.plot-scroll{overflow-x:auto;padding:6px 12px 4px}
+svg{display:block;width:100%;height:auto;min-width:520px;touch-action:pan-y}
+figcaption{padding:2px 22px 20px;font-size:.92rem;color:var(--ink-2);max-width:70ch}
+.legend{display:flex;flex-wrap:wrap;gap:7px 20px;padding:2px 22px 12px;font-size:.83rem;color:var(--ink-2)}
+.legend i{width:15px;height:3px;border-radius:2px;display:inline-block;vertical-align:middle;margin-right:7px}
+.axis-t{fill:var(--ink-3);font-size:11px}
+.axis-l{fill:var(--ink-3);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase}
+.grid{stroke:var(--rule);stroke-width:1}
+.dlabel{font-size:12px;font-weight:600}
+
+/* ── pipeline ─────────────────────────────────────────────── */
+.chain{display:flex;flex-direction:column;gap:9px;counter-reset:s}
+.step{display:grid;grid-template-columns:34px 1fr;gap:16px;align-items:start;
+  background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:15px 18px}
+.step .n{counter-increment:s;font-size:.78rem;font-weight:700;color:var(--accent);
+  padding-top:2px;letter-spacing:.04em}
+.step .n::before{content:counter(s,decimal-leading-zero)}
+.step h3{margin-bottom:3px}
+.step p{font-size:.93rem;color:var(--ink-2)}
+.split{display:grid;grid-template-columns:1fr;gap:9px}
+@media(min-width:720px){.split{grid-template-columns:1fr 1fr}}
+.leaf{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:8px;padding:15px 18px;display:flex;flex-direction:column;gap:4px}
+.leaf p{font-size:.93rem;color:var(--ink-2)}
+
+/* ── inventory ────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;font-size:.93rem}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2)}
+.tbl-scroll{overflow-x:auto;background:var(--panel);border:1px solid var(--rule);border-radius:9px}
+
+/* ── caveats ──────────────────────────────────────────────── */
+.caveat{background:var(--panel);border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.caveat > div{padding:16px 20px;border-bottom:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+.caveat > div:last-child{border-bottom:0}
+.caveat p{font-size:.93rem;color:var(--ink-2)}
+.flag{font-size:.7rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+
+footer{padding:44px 0 60px;color:var(--ink-3);font-size:.88rem}
+footer .measure{display:flex;flex-direction:column;gap:10px}
+
+/* ── tooltip ──────────────────────────────────────────────── */
+.tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .1s;z-index:9;
+  background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:8px 11px;
+  box-shadow:var(--shadow);font-size:.79rem;line-height:1.5;white-space:nowrap;color:var(--ink)}
+.tip b{font-variant-numeric:tabular-nums}
+.tip .sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header>
+  <div class="wrap head-in">
+    <span class="eyebrow">Camera-scanned film · spectral calibration</span>
+    <h1>Getting film colour from&nbsp;physics, not from&nbsp;taste</h1>
+    <div class="lede measure">
+      <p>Scan film with a digital camera and you get a raw file whose colour depends on your light source, your sensor, and – on a negative – a heavy orange cast that turns out not to be a filter you can take back off. The usual fix is per-channel curves nudged by eye until a grey card looks grey.</p>
+      <p>This project takes the other route: model what is physically happening to the light, using the dye data manufacturers publish in their datasheets, and land on a defined measurement standard. The output is a set of <span class="mono">.cube</span> LUTs for DaVinci Resolve.</p>
+    </div>
+    <div class="strip mono">
+      <div><b>10</b><span>C-41 stocks</span></div>
+      <div><b>4</b><span>slide stocks</span></div>
+      <div><b>2</b><span>print papers</span></div>
+      <div><b>3</b><span>LEDs, not 1</span></div>
+      <div><b>0</b><span>rolls measured</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section><div class="wrap sec-in">
+  <span class="eyebrow">Figure 1 · why three lights</span>
+  <h2 class="measure">Narrowband light does the separation for you</h2>
+  <p class="measure">A colour film holds three dyes – cyan, magenta, yellow – and each absorbs its own part of the spectrum. Scan with one white light and every camera channel sees a blend of all three, so you inherit a crosstalk problem you then have to unmix.</p>
+  <p class="measure">Scan instead with three narrow LEDs placed where each dye dominates, and the separation is done optically, before any maths. The chart below is Portra 400's actual dye data from this repo, with the three LED wavelengths marked.</p>
+
+  <figure>
+    <div class="fig-head">
+      <h3>Dye absorption and LED placement – Kodak Portra 400</h3>
+      <span class="eyebrow">Spectral density, digitised from datasheet E-4050</span>
+    </div>
+    <div class="plot-scroll"><svg id="f1" viewBox="0 0 760 340" role="img"
+      aria-label="Three dye absorption curves across 400 to 700 nanometres, with vertical markers at the 450, 544 and 640 nanometre LED wavelengths. Each marker falls near one dye's peak."></svg></div>
+    <div class="legend">
+      <span><i style="background:var(--cy)"></i>Cyan layer</span>
+      <span><i style="background:var(--mg)"></i>Magenta layer</span>
+      <span><i style="background:var(--ye)"></i>Yellow layer</span>
+      <span><i style="background:var(--ink-3);height:0;border-top:2px dashed var(--ink-3)"></i>LED wavelength</span>
+    </div>
+    <figcaption>Each LED sits close to one dye's peak and near the others' shoulders. The channels are not perfectly independent – the residual crosstalk is unmixed numerically, and the pipeline reports how well-conditioned that step is – but the hard part is solved by choosing the light, not by fitting.</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap sec-in">
+  <span class="eyebrow">The chain</span>
+  <h2 class="measure">From raw file to something with units</h2>
+  <p class="measure">Five stages. Nothing here is hand-tuned; every cube is regenerated by a script from published data.</p>
+  <div class="chain">
+    <div class="step"><span class="n mono"></span><div>
+      <h3>Scan under three LEDs</h3>
+      <p>Three sequential exposures at 640, 544 and 450&nbsp;nm, merged into one linear image.</p></div></div>
+    <div class="step"><span class="n mono"></span><div>
+      <h3>Anchor the roll</h3>
+      <p>Measure this particular roll's clear base and divide it out – film base density varies roll to roll, and everything downstream assumes it has been removed.</p></div></div>
+    <div class="step"><span class="n mono"></span><div>
+      <h3>Into the density corridor</h3>
+      <p>Linear values become density on a fixed 0–1 scale, so a lookup table can address them evenly.</p></div></div>
+    <div class="step"><span class="n mono"></span><div>
+      <h3>Onto a standard</h3>
+      <p>The scanner's own density becomes a <em>published</em> density – Status&nbsp;M for colour negatives, printing density for motion-picture stock, CIE&nbsp;XYZ for slides. This is the point of the whole exercise: a number that means the same thing on someone else's rig.</p></div></div>
+    <div class="step"><span class="n mono"></span><div>
+      <h3>Then render it</h3>
+      <p>Slides are viewed as transparencies on a D50 light table. Negatives are printed – see below.</p></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap sec-in">
+  <span class="eyebrow">Figure 2 · negatives</span>
+  <h2 class="measure">A negative is not a backwards photograph. It is a set of printing instructions.</h2>
+  <p class="measure">Colour negative film was engineered to be printed onto a particular paper. And the orange, despite the name everyone uses for it, <strong>is not a layer</strong> – there is no sheet of orange anywhere in the film.</p>
+  <p class="measure">Real image dyes absorb light they should not: cyan dye soaks up some green and blue, magenta some blue. Colour negative film corrects this with <em>coloured couplers</em> – the chemistry that forms the magenta and cyan dyes is itself coloured, yellow and pink respectively, before it reacts. Where the image develops, the coupler is consumed and its colour goes with it. What you see as orange is the coupler that has <em>not</em> reacted.</p>
+  <p class="measure">Which makes it self-adjusting rather than a fixed tint: wherever image dye is missing its unwanted absorption, the leftover coupler supplies exactly that much, so dye plus surviving coupler sum to a near-constant unwanted absorption at every exposure level – and a constant is what the printing step takes out. It also means the orange is a <em>positive</em> image, densest where the least image dye formed.</p>
+  <p class="measure">So it is not a defect to subtract. It is half of a correction whose other half is the print. This pipeline therefore simulates the darkroom: reconstruct the dye amounts, shine a 3200&nbsp;K enlarger through them, expose real RA-4 paper, develop, and view the print under D65. <span style="color:var(--ink-3)">(The mechanism dates to W.&nbsp;T.&nbsp;Hanson's 1950 paper on colour correction with coloured couplers.)</span></p>
+
+  <div class="split">
+    <div class="leaf"><h3>Papers are paired like a lab pairs them</h3>
+      <p>Kodak negatives print to Kodak Endura Premier; Fujifilm negatives to Fujicolor Pro Laser. Mixing them is the kind of thing that quietly looks wrong.</p></div>
+    <div class="leaf"><h3>The paper sets the limits, not the film</h3>
+      <p>How much you can actually print is a property of the paper – measured here as identical across all five stocks on each paper.</p></div>
+  </div>
+
+  <figure>
+    <div class="fig-head">
+      <h3>What a print can actually hold</h3>
+      <span class="eyebrow">Neutral ramp measured through the shipped 65³ cubes</span>
+    </div>
+    <div class="plot-scroll"><svg id="f2" viewBox="0 0 760 340" role="img"
+      aria-label="Two curves of print brightness against negative density for Endura Premier and Fuji Pro Laser paper. Both are flat at each end and rise steeply in a narrow middle band, which is the printable window."></svg></div>
+    <div class="legend">
+      <span><i style="background:var(--paper-a)"></i>Kodak Endura Premier</span>
+      <span><i style="background:var(--paper-b)"></i>Fujicolor Pro Laser II</span>
+      <span><i style="background:var(--band);height:11px;border-radius:2px"></i>printable window</span>
+    </div>
+    <figcaption>Outside the shaded band the print has clipped to paper white or maximum black, exactly as a real print does – the flat ends are not a modelling artifact. Fuji is the lower-contrast paper and gives about 0.2&nbsp;more optical density of room, almost all of it in the shadows. Mid-grey lands on the same spot for every stock on both papers, which is by construction rather than luck.</figcaption>
+  </figure>
+</div></section>
+
+<section><div class="wrap sec-in">
+  <span class="eyebrow">Figure 3 · the honest part</span>
+  <h2 class="measure">Where this currently falls down</h2>
+  <p class="measure">No manufacturer publishes per-layer dye spectra for still film. They publish one <em>combined</em> curve. Recovering three dye curves from one combined measurement is under-determined – one spectrum cannot pin down three components – so each stock's dyes are inferred against a reference dye set.</p>
+  <p class="measure">That inference has a measurable wobble. If you swap the reference set for a plausible alternative, results move by 0.030–0.105&nbsp;density. Any two stocks closer together than that cannot be told apart by this pipeline, whatever the real films do.</p>
+
+  <figure>
+    <div class="fig-head">
+      <h3>Distance between stocks vs. the model's own uncertainty</h3>
+      <span class="eyebrow">All 45 pairs across the ten-stock C-41 fleet</span>
+    </div>
+    <div class="plot-scroll"><svg id="f3" viewBox="0 0 760 250" role="img"
+      aria-label="Each of 45 stock pairs plotted by spectral distance. A shaded uncertainty band from 0.030 to 0.105 covers most of the pairs; only the widest-separated pairs sit clear of it to the right."></svg></div>
+    <figcaption>Each dot is one pair of films. Dots inside the shaded band are indistinguishable to the model – not necessarily similar in real life. Only the widest pairs, mostly Superia Premium 400 against Kodak stocks, sit clear of it. This chart compares the modelled DYE sets only. The stocks also differ in the strength and spectral shape of their orange masks, by 0.346 D across the fleet, which is measured directly from the datasheets and is independent of the dye model; that difference reaches the print tables at saturated colours. See PROJECT.md. Treat the print LUTs as sound <em>prints</em>, not as stock fingerprints.</figcaption>
+  </figure>
+
+  <div class="caveat">
+    <div><span class="flag">Works, but unmeasured</span>
+      <p>These transforms are in real use and behave as intended – but qualitatively. No figure on this page has been compared against a measurement; each one is the model reporting on itself. The open task is a validation roll: a grey-ramp exposure series, a ColorChecker frame, and colour-separation wedges read on a spectrophotometer. That is what would turn &ldquo;looks right&rdquo; into &ldquo;agrees to within&nbsp;X&rdquo;.</p></div>
+    <div><span class="flag">Interimage effects missing</span>
+      <p>Film layers chemically inhibit their neighbours during development, and manufacturers design this in deliberately. It is one likely reason stocks look different in ways this model cannot reproduce. It is not modelled here.</p></div>
+    <div><span class="flag">Nominal illuminants</span>
+      <p>The enlarger and viewing light are assumed rather than measured, and no print from this pipeline has been set beside a physical one.</p></div>
+    <div><span class="flag">One specific rig</span>
+      <p>Built around a Sony a7R III and a narrowband LED source. It is a research pipeline shared in case the method is useful, not a product.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap sec-in">
+  <span class="eyebrow">Inventory</span>
+  <h2 class="measure">What's built</h2>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Family</th><th>Stocks</th><th>Lands on</th><th class="num">Cubes</th></tr></thead>
+    <tbody>
+      <tr><td>Colour negative<br><span class="mono" style="font-size:.82rem;color:var(--ink-3)">C-41</span></td>
+        <td>Portra 400 · Portra 160 · Ektar 100 · Gold 200 · Ultra Max 400 · Fujifilm 400 · Fujifilm 200 · Fujicolor 100 · Superia Premium 400 · Pro 400H</td>
+        <td>Status M density, then an RA-4 print emulation on the matching paper</td><td class="num">30</td></tr>
+      <tr><td>Slide film<br><span class="mono" style="font-size:.82rem;color:var(--ink-3)">E-6</span></td>
+        <td>Velvia 100 · Velvia 50 · Provia 100F · Ektachrome E100/100D</td>
+        <td>Colorimetric D50 XYZ – the transparency on a light table</td><td class="num">4</td></tr>
+      <tr><td>Motion picture<br><span class="mono" style="font-size:.82rem;color:var(--ink-3)">ECN-2</span></td>
+        <td>Kodak Vision3 50D · 200T · 250D · 500T</td>
+        <td>Cineon / SMPTE RP 180 printing density</td><td class="num">1</td></tr>
+    </tbody>
+  </table></div>
+  <p class="measure" style="font-size:.93rem;color:var(--ink-2)">Plus the capture-side tools: a raw-to-EXR converter, a per-roll anchor measurer with a GUI, and the DCTLs that make up the Resolve node chain.</p>
+</div></section>
+
+<section style="border-bottom:0"><div class="wrap sec-in">
+  <span class="eyebrow">Method</span>
+  <h2 class="measure">The datasheets are vector art, so trace the vectors</h2>
+  <p class="measure">Manufacturers' charts are drawn inside the PDF as real path geometry. This project extracts those paths rather than sampling pixels off a rendered image, which gets axis calibration down to around 0.001 log exposure.</p>
+  <p class="measure">That accuracy is easy to fool, though – so tracing is only one of four steps. The one that matters most is the last: <strong>overlay the digitised result back onto the printed ink.</strong> If the curve lands on the line, then frame detection, axis origin, axis step and sampling are all correct at once.</p>
+  <p class="measure">A goodness-of-fit number proves none of that. Evenly spaced gridlines fit <em>any</em> origin and <em>any</em> step with zero residual – which is precisely how three separate axis errors slipped through before the overlay check existed. One of them had a slower film reading as more sensitive than a faster one.</p>
+  <div class="leaf" style="max-width:64ch">
+    <h3>The rule underneath all of it</h3>
+    <p>A value nobody measured never enters a fit. Where a datasheet's data ends, the model stops – inventing a plausible tail is how you get a confidently wrong answer.</p>
+  </div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap measure">
+  <p>Charts on this page are drawn from the repository's own data files and shipped LUTs – the dye curves are the digitised datasheet, and the print ramps are measured through the actual cubes.</p>
+  <p>Datasheets remain the property of their manufacturers and are used here as source material.</p>
+</div></footer>
+
+<div class="tip" id="tip"></div>
+
+<script id="data" type="application/json">{"dyes":{"cyan":[0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2154,0.2077,0.1999,0.1917,0.182,0.1733,0.1644,0.1555,0.1467,0.1385,0.1302,0.1226,0.115,0.108,0.101,0.0945,0.0882,0.0823,0.0767,0.0714,0.0665,0.0622,0.0581,0.0543,0.051,0.0481,0.0456,0.0434,0.0413,0.0399,0.0384,0.0372,0.0361,0.035,0.034,0.0333,0.0325,0.0319,0.0315,0.031,0.0306,0.0303,0.0302,0.0304,0.0306,0.0311,0.0319,0.0328,0.0336,0.0343,0.0355,0.0368,0.0379,0.0394,0.0407,0.0423,0.0442,0.0458,0.0482,0.0509,0.0537,0.057,0.061,0.0652,0.0694,0.0744,0.079,0.0836,0.0895,0.0962,0.1031,0.1102,0.1174,0.1247,0.1322,0.1396,0.1472,0.155,0.1627,0.1709,0.1789,0.1874,0.1963,0.2058,0.2157,0.2259,0.2369,0.2492,0.2626,0.2775,0.2939,0.3104,0.3304,0.35,0.3642,0.3865,0.4069,0.4276,0.448,0.468,0.4882,0.5081,0.528,0.5478,0.5675,0.587,0.6065,0.6258,0.6454,0.6651,0.6829,0.6994,0.7161,0.7339,0.7529,0.768,0.7836,0.8001,0.8153,0.8301,0.8439,0.8572,0.8724,0.8855,0.8982,0.9103,0.9217,0.9327,0.9431,0.9526,0.9617,0.9696,0.9768,0.9831,0.9885,0.9928,0.996,0.9987,1.0],"magenta":[-0.0057,-0.0057,-0.0057,-0.0057,-0.0057,-0.0057,-0.004,-0.0032,-0.004,-0.0056,-0.0065,-0.0051,-0.0036,-0.0019,0.0005,0.0012,0.0024,0.0034,0.0062,0.0074,0.0056,0.0027,-0.0009,-0.0065,-0.0106,-0.012,-0.0115,-0.0098,-0.0072,-0.0035,0.0008,0.0087,0.0192,0.0282,0.0415,0.0543,0.0659,0.0823,0.1,0.1192,0.1406,0.1635,0.188,0.2145,0.2425,0.2723,0.3035,0.3355,0.3684,0.4018,0.4358,0.4701,0.5044,0.5389,0.5734,0.6086,0.643,0.6749,0.7073,0.7378,0.769,0.7992,0.8275,0.8543,0.8798,0.9044,0.9274,0.9476,0.9642,0.9781,0.9887,0.9957,0.9999,0.9989,0.9923,0.9826,0.9688,0.9514,0.9305,0.9055,0.8766,0.8451,0.8117,0.7768,0.7397,0.7012,0.6621,0.6232,0.5845,0.5474,0.5132,0.4805,0.4436,0.4122,0.3828,0.3551,0.3276,0.3026,0.2835,0.2633,0.2453,0.2287,0.2151,0.2025,0.1891,0.1748,0.1649,0.1564,0.1494,0.1423,0.1341,0.1235,0.1172,0.1115,0.1064,0.1016,0.0972,0.0932,0.0895,0.0863,0.0832,0.0808,0.0783,0.0759,0.0738,0.0722,0.0703,0.0688,0.0674,0.0661,0.0644,0.0636,0.0624,0.0611,0.0601,0.0595,0.0586,0.0576,0.0566,0.0559,0.0551,0.0547,0.054,0.0533,0.0527,0.052,0.0517,0.0512,0.0507,0.0501,0.0494],"yellow":[0.5103,0.5103,0.5103,0.5103,0.5103,0.5103,0.5103,0.5267,0.5577,0.5888,0.6205,0.653,0.6836,0.7152,0.7472,0.7775,0.8066,0.8336,0.8631,0.8885,0.9113,0.9314,0.9488,0.9633,0.9754,0.9852,0.9928,0.9976,0.9997,0.9991,0.9946,0.9863,0.9752,0.9611,0.9442,0.9244,0.9009,0.8747,0.8455,0.816,0.7848,0.7524,0.7159,0.6803,0.6446,0.6089,0.5735,0.5388,0.5045,0.4708,0.4383,0.4083,0.3797,0.3513,0.3246,0.2993,0.2757,0.2534,0.2329,0.2143,0.1977,0.1829,0.1693,0.1569,0.1456,0.1353,0.1261,0.1175,0.1099,0.1025,0.0964,0.0906,0.0853,0.0806,0.0759,0.0721,0.0688,0.0658,0.0616,0.0581,0.0549,0.0516,0.0486,0.0456,0.0428,0.0398,0.0372,0.0346,0.0321,0.03,0.0282,0.0264,0.0249,0.0233,0.0219,0.0208,0.0196,0.0187,0.0177,0.0168,0.0155,0.0147,0.0138,0.0131,0.0121,0.0115,0.0113,0.0108,0.0104,0.0103,0.0101,0.0098,0.0093,0.009,0.0088,0.0084,0.0082,0.0081,0.0079,0.0075,0.0074,0.0072,0.007,0.0068,0.0065,0.0063,0.0061,0.006,0.0059,0.0055,0.0053,0.0052,0.005,0.0048,0.0047,0.0044,0.0041,0.004,0.0038,0.0035,0.0035,0.0033,0.0033,0.0031,0.0031,0.003,0.003,0.003,0.0029,0.0029,0.0029],"wl":[400,402,404,406,408,410,412,414,416,418,420,422,424,426,428,430,432,434,436,438,440,442,444,446,448,450,452,454,456,458,460,462,464,466,468,470,472,474,476,478,480,482,484,486,488,490,492,494,496,498,500,502,504,506,508,510,512,514,516,518,520,522,524,526,528,530,532,534,536,538,540,542,544,546,548,550,552,554,556,558,560,562,564,566,568,570,572,574,576,578,580,582,584,586,588,590,592,594,596,598,600,602,604,606,608,610,612,614,616,618,620,622,624,626,628,630,632,634,636,638,640,642,644,646,648,650,652,654,656,658,660,662,664,666,668,670,672,674,676,678,680,682,684,686,688,690,692,694,696,698,700]},"leds":[450,544,640],"ramps":{"endura":{"k":[0.0,0.0156,0.0312,0.0469,0.0625,0.0781,0.0938,0.1094,0.125,0.1406,0.1562,0.1719,0.1875,0.2031,0.2188,0.2344,0.25,0.2656,0.2812,0.2969,0.3125,0.3281,0.3438,0.3594,0.375,0.3906,0.4062,0.4219,0.4375,0.4531,0.4688,0.4844,0.5,0.5156,0.5312,0.5469,0.5625,0.5781,0.5938,0.6094,0.625,0.6406,0.6562,0.6719,0.6875,0.7031,0.7188,0.7344,0.75,0.7656,0.7812,0.7969,0.8125,0.8281,0.8438,0.8594,0.875,0.8906,0.9062,0.9219,0.9375,0.9531,0.9688,0.9844,1.0],"Y":[0.005279,0.005279,0.005279,0.005279,0.005279,0.005365,0.006107,0.006996,0.009848,0.014416,0.023183,0.03856,0.06496,0.109457,0.174026,0.258872,0.364111,0.482129,0.598278,0.705429,0.80112,0.871241,0.921292,0.959595,0.981358,0.991795,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967,0.991967]},"fuji":{"k":[0.0,0.0156,0.0312,0.0469,0.0625,0.0781,0.0938,0.1094,0.125,0.1406,0.1562,0.1719,0.1875,0.2031,0.2188,0.2344,0.25,0.2656,0.2812,0.2969,0.3125,0.3281,0.3438,0.3594,0.375,0.3906,0.4062,0.4219,0.4375,0.4531,0.4688,0.4844,0.5,0.5156,0.5312,0.5469,0.5625,0.5781,0.5938,0.6094,0.625,0.6406,0.6562,0.6719,0.6875,0.7031,0.7188,0.7344,0.75,0.7656,0.7812,0.7969,0.8125,0.8281,0.8438,0.8594,0.875,0.8906,0.9062,0.9219,0.9375,0.9531,0.9688,0.9844,1.0],"Y":[0.007803,0.008096,0.008455,0.008978,0.009744,0.01091,0.013205,0.016414,0.021348,0.028883,0.040376,0.057812,0.083897,0.121941,0.175015,0.244229,0.325483,0.414486,0.509858,0.605625,0.695107,0.772229,0.836251,0.887819,0.92786,0.957656,0.978225,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919,0.978919]}},"pairs":[["fujifilm200","fujifilm400",0.0],["gold200","portra400",0.0244],["portra160","portra400",0.0271],["ektar100","portra160",0.0305],["gold200","ultramax400",0.0313],["gold200","pro400h",0.0375],["gold200","portra160",0.0428],["pro400h","ultramax400",0.0441],["ektar100","portra400",0.0444],["portra400","pro400h",0.0456],["portra400","ultramax400",0.0567],["portra160","pro400h",0.0576],["ektar100","gold200",0.0646],["fujifilm200","portra160",0.0661],["fujifilm400","portra160",0.0661],["fujicolor100","pro400h",0.0691],["portra160","ultramax400",0.0709],["fujicolor100","portra160",0.0744],["fujifilm200","gold200",0.0773],["fujifilm400","gold200",0.0773],["ektar100","pro400h",0.0798],["fujifilm400","portra400",0.0811],["fujifilm200","portra400",0.0811],["fujicolor100","portra400",0.0826],["fujicolor100","gold200",0.085],["ektar100","fujifilm200",0.0871],["ektar100","fujifilm400",0.0871],["ektar100","fujicolor100",0.088],["fujifilm400","ultramax400",0.0916],["fujifilm200","ultramax400",0.0916],["fujifilm200","pro400h",0.0994],["fujifilm400","pro400h",0.0994],["ektar100","ultramax400",0.1002],["fujicolor100","ultramax400",0.1048],["fujicolor100","fujifilm200",0.121],["fujicolor100","fujifilm400",0.121],["pro400h","superiapremium400",0.1294],["superiapremium400","ultramax400",0.1451],["fujicolor100","superiapremium400",0.1479],["gold200","superiapremium400",0.1605],["portra160","superiapremium400",0.1815],["portra400","superiapremium400",0.1839],["fujifilm400","superiapremium400",0.207],["fujifilm200","superiapremium400",0.207],["ektar100","superiapremium400",0.22]]}</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const tip = document.getElementById('tip');
+const NS = 'http://www.w3.org/2000/svg';
+const cv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const el = (t, a = {}) => { const e = document.createElementNS(NS, t);
+  for (const k in a) e.setAttribute(k, a[k]); return e; };
+const showTip = (html, ev) => { tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect();
+  tip.style.left = Math.min(ev.clientX + 14, innerWidth - r.width - 10) + 'px';
+  tip.style.top = Math.max(8, ev.clientY - r.height - 12) + 'px'; };
+const hideTip = () => { tip.style.opacity = 0; };
+
+/* ── Figure 1 – dye spectra + LED placement ─────────────── */
+function f1() {
+  const s = document.getElementById('f1'); s.textContent = '';
+  const W = 760, H = 340, m = { t: 16, r: 18, b: 42, l: 52 };
+  const w = W - m.l - m.r, h = H - m.t - m.b;
+  const wl = D.dyes.wl, series = [['cyan', '--cy', 'Cyan'], ['magenta', '--mg', 'Magenta'], ['yellow', '--ye', 'Yellow']];
+  const ymax = Math.max(...series.flatMap(([k]) => D.dyes[k])) * 1.06;
+  const X = v => m.l + (v - wl[0]) / (wl[wl.length - 1] - wl[0]) * w;
+  const Y = v => m.t + h - v / ymax * h;
+
+  for (let g = 0; g <= 4; g++) { const y = m.t + h - g / 4 * h;
+    s.appendChild(el('line', { x1: m.l, x2: m.l + w, y1: y, y2: y, class: 'grid', opacity: g ? .5 : 1 }));
+    const t = el('text', { x: m.l - 9, y: y + 4, class: 'axis-t', 'text-anchor': 'end' });
+    t.textContent = (g / 4 * ymax).toFixed(1); s.appendChild(t); }
+  for (let v = 400; v <= 700; v += 50) { const t = el('text', { x: X(v), y: m.t + h + 20, class: 'axis-t', 'text-anchor': 'middle' });
+    t.textContent = v; s.appendChild(t); }
+  let a = el('text', { x: m.l + w / 2, y: H - 7, class: 'axis-l', 'text-anchor': 'middle' });
+  a.textContent = 'wavelength (nm)'; s.appendChild(a);
+  a = el('text', { x: 13, y: m.t + h / 2, class: 'axis-l', 'text-anchor': 'middle',
+    transform: `rotate(-90 13 ${m.t + h / 2})` }); a.textContent = 'density'; s.appendChild(a);
+
+  D.leds.forEach(L => {
+    s.appendChild(el('line', { x1: X(L), x2: X(L), y1: m.t, y2: m.t + h,
+      stroke: cv('--ink-3'), 'stroke-width': 1.5, 'stroke-dasharray': '4 4', opacity: .75 }));
+    const t = el('text', { x: X(L), y: m.t + 12, class: 'dlabel', fill: cv('--ink-3'), 'text-anchor': 'middle' });
+    t.textContent = L + ' nm'; s.appendChild(t); });
+
+  series.forEach(([k, tok, name]) => {
+    const d = wl.map((x, i) => `${i ? 'L' : 'M'}${X(x).toFixed(1)} ${Y(D.dyes[k][i]).toFixed(1)}`).join(' ');
+    s.appendChild(el('path', { d, fill: 'none', stroke: cv(tok), 'stroke-width': 2,
+      'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+    let pi = 0; D.dyes[k].forEach((v, i) => { if (v > D.dyes[k][pi]) pi = i; });
+    const t = el('text', { x: X(wl[pi]), y: Y(D.dyes[k][pi]) - 9, class: 'dlabel',
+      fill: cv(tok), 'text-anchor': 'middle' }); t.textContent = name; s.appendChild(t); });
+
+  const cross = el('line', { y1: m.t, y2: m.t + h, stroke: cv('--ink-3'), 'stroke-width': 1, opacity: 0 });
+  s.appendChild(cross);
+  const hit = el('rect', { x: m.l, y: m.t, width: w, height: h, fill: 'transparent' });
+  s.appendChild(hit);
+  hit.addEventListener('pointermove', ev => {
+    const r = s.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * W;
+    const nm = wl[0] + (px - m.l) / w * (wl[wl.length - 1] - wl[0]);
+    let i = Math.round((nm - wl[0]) / (wl[1] - wl[0])); i = Math.max(0, Math.min(wl.length - 1, i));
+    cross.setAttribute('x1', X(wl[i])); cross.setAttribute('x2', X(wl[i])); cross.setAttribute('opacity', .55);
+    showTip(`<b>${wl[i]} nm</b><br>` + series.map(([k, tok, n]) =>
+      `<span class="sw" style="background:${cv(tok)}"></span>${n} <b>${D.dyes[k][i].toFixed(3)}</b>`).join('<br>'), ev); });
+  hit.addEventListener('pointerleave', () => { cross.setAttribute('opacity', 0); hideTip(); });
+}
+
+/* ── Figure 2 – printable window ────────────────────────── */
+function f2() {
+  const s = document.getElementById('f2'); s.textContent = '';
+  const W = 760, H = 340, m = { t: 18, r: 18, b: 42, l: 54 };
+  const w = W - m.l - m.r, h = H - m.t - m.b;
+  const X = v => m.l + v * w, Y = v => m.t + h - v * h;
+  const papers = [['endura', '--paper-a', 'Endura Premier', .109, .391],
+                  ['fuji', '--paper-b', 'Fuji Pro Laser II', .062, .406]];
+
+  s.appendChild(el('rect', { x: X(.062), y: m.t, width: X(.406) - X(.062), height: h, fill: cv('--band') }));
+  for (let g = 0; g <= 4; g++) { const y = m.t + h - g / 4 * h;
+    s.appendChild(el('line', { x1: m.l, x2: m.l + w, y1: y, y2: y, class: 'grid', opacity: g ? .5 : 1 }));
+    const t = el('text', { x: m.l - 9, y: y + 4, class: 'axis-t', 'text-anchor': 'end' });
+    t.textContent = (g / 4).toFixed(2); s.appendChild(t); }
+  for (let v = 0; v <= 1.001; v += .2) { const t = el('text', { x: X(v), y: m.t + h + 20, class: 'axis-t', 'text-anchor': 'middle' });
+    t.textContent = v.toFixed(1); s.appendChild(t); }
+  let a = el('text', { x: m.l + w / 2, y: H - 7, class: 'axis-l', 'text-anchor': 'middle' });
+  a.textContent = 'negative density (normalised)'; s.appendChild(a);
+  a = el('text', { x: 13, y: m.t + h / 2, class: 'axis-l', 'text-anchor': 'middle',
+    transform: `rotate(-90 13 ${m.t + h / 2})` }); a.textContent = 'print brightness'; s.appendChild(a);
+
+  s.appendChild(el('line', { x1: m.l, x2: m.l + w, y1: Y(.18), y2: Y(.18),
+    stroke: cv('--ink-3'), 'stroke-width': 1.5, 'stroke-dasharray': '3 5', opacity: .8 }));
+  let t = el('text', { x: m.l + w - 4, y: Y(.18) - 7, class: 'dlabel', fill: cv('--ink-3'), 'text-anchor': 'end' });
+  t.textContent = 'mid-grey'; s.appendChild(t);
+
+  papers.forEach(([k, tok, name]) => {
+    const R = D.ramps[k];
+    const d = R.k.map((x, i) => `${i ? 'L' : 'M'}${X(x).toFixed(1)} ${Y(R.Y[i]).toFixed(1)}`).join(' ');
+    s.appendChild(el('path', { d, fill: 'none', stroke: cv(tok), 'stroke-width': 2.4,
+      'stroke-linejoin': 'round', 'stroke-linecap': 'round' })); });
+
+  const cross = el('line', { y1: m.t, y2: m.t + h, stroke: cv('--ink-3'), 'stroke-width': 1, opacity: 0 });
+  s.appendChild(cross);
+  const dots = papers.map(([, tok]) => { const c = el('circle', { r: 4.5, fill: cv(tok),
+    stroke: cv('--panel'), 'stroke-width': 2, opacity: 0 }); s.appendChild(c); return c; });
+  const hit = el('rect', { x: m.l, y: m.t, width: w, height: h, fill: 'transparent' });
+  s.appendChild(hit);
+  hit.addEventListener('pointermove', ev => {
+    const r = s.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * W;
+    let i = Math.round(((px - m.l) / w) * 64); i = Math.max(0, Math.min(64, i));
+    const kk = D.ramps.endura.k[i];
+    cross.setAttribute('x1', X(kk)); cross.setAttribute('x2', X(kk)); cross.setAttribute('opacity', .55);
+    papers.forEach(([k], j) => { dots[j].setAttribute('cx', X(kk));
+      dots[j].setAttribute('cy', Y(D.ramps[k].Y[i])); dots[j].setAttribute('opacity', 1); });
+    showTip(`<b>density ${kk.toFixed(3)}</b><br>` + papers.map(([k, tok, n]) =>
+      `<span class="sw" style="background:${cv(tok)}"></span>${n} <b>${D.ramps[k].Y[i].toFixed(3)}</b>`).join('<br>'), ev); });
+  hit.addEventListener('pointerleave', () => { cross.setAttribute('opacity', 0);
+    dots.forEach(d => d.setAttribute('opacity', 0)); hideTip(); });
+}
+
+/* ── Figure 3 – discrimination gap ──────────────────────── */
+function f3() {
+  const s = document.getElementById('f3'); s.textContent = '';
+  const W = 760, H = 250, m = { t: 46, r: 22, b: 46, l: 22 };
+  const w = W - m.l - m.r, h = H - m.t - m.b;
+  const xmax = .23, X = v => m.l + v / xmax * w;
+  const nice = n => n.replace(/(\d+)$/, ' $1').replace(/^ektar/, 'Ektar').replace(/^portra/, 'Portra')
+    .replace(/^gold/, 'Gold').replace(/^ultramax/, 'Ultra Max').replace(/^pro/, 'Pro')
+    .replace(/^fujicolor/, 'Fujicolor').replace(/^fujifilm/, 'Fujifilm').replace(/^superiapremium/, 'Superia Premium');
+
+  s.appendChild(el('rect', { x: X(.030), y: m.t - 12, width: X(.105) - X(.030), height: h + 24,
+    fill: cv('--band'), rx: 4 }));
+  let t = el('text', { x: (X(.030) + X(.105)) / 2, y: m.t - 20, class: 'dlabel',
+    fill: cv('--accent'), 'text-anchor': 'middle' });
+  t.textContent = "the model's own uncertainty"; s.appendChild(t);
+  t = el('text', { x: (X(.030) + X(.105)) / 2, y: m.t + h + 20, class: 'axis-t', 'text-anchor': 'middle' });
+  t.textContent = 'pairs in here are indistinguishable to the pipeline'; s.appendChild(t);
+
+  s.appendChild(el('line', { x1: m.l, x2: m.l + w, y1: m.t + h, y2: m.t + h, class: 'grid' }));
+  for (let v = 0; v <= .2001; v += .05) {
+    s.appendChild(el('line', { x1: X(v), x2: X(v), y1: m.t + h, y2: m.t + h + 5, class: 'grid' }));
+    const q = el('text', { x: X(v), y: m.t + h + 34, class: 'axis-t', 'text-anchor': 'middle' });
+    q.textContent = v.toFixed(2); s.appendChild(q); }
+  const a = el('text', { x: m.l + w, y: m.t - 20, class: 'axis-l', 'text-anchor': 'end' });
+  a.textContent = 'spectral distance between two stocks (D)'; s.appendChild(a);
+
+  const lanes = new Array(200).fill(-99);
+  D.pairs.forEach(([A, B, v]) => {
+    const x = X(v); let lane = 0;
+    while (lane < 10 && x - lanes[lane] < 13) lane++;
+    lanes[lane] = x;
+    const y = m.t + h - 14 - lane * 15;
+    const inBand = v >= .030 && v <= .105;
+    const c = el('circle', { cx: x, cy: y, r: 5.5,
+      fill: inBand ? cv('--ink-3') : cv('--accent'),
+      stroke: cv('--panel'), 'stroke-width': 2, opacity: inBand ? .78 : 1 });
+    c.style.cursor = 'crosshair';
+    c.addEventListener('pointerenter', ev => { c.setAttribute('r', 7.5);
+      showTip(`<b>${nice(A)}</b> vs <b>${nice(B)}</b><br>distance <b>${v.toFixed(4)}</b> D` +
+        (inBand ? '<br><span style="color:var(--ink-3)">inside the uncertainty band</span>' : ''), ev); });
+    c.addEventListener('pointerleave', () => { c.setAttribute('r', 5.5); hideTip(); });
+    s.appendChild(c); });
+}
+
+const draw = () => { f1(); f2(); f3(); };
+draw();
+matchMedia('(prefers-color-scheme:dark)').addEventListener('change', draw);
+addEventListener('resize', () => { clearTimeout(window._t); window._t = setTimeout(draw, 150); });
+</script>

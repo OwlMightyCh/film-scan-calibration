@@ -1,0 +1,38 @@
+// V3_250D_PD_preshaper_lin_to_normD.dctl
+// PRE-shaper for V3_250D_PrintingDensity_RP180.cube  (node BEFORE the cube).
+// Raw linear scan -> (per-channel Dmin anchor) -> -log10 -> /DMAX -> clamp[0,1].
+// Output feeds the 33^3 cube, whose input domain 0..1 == scanner density 0..DMAX.
+//
+// DMAX = 3.30 is LOAD-BEARING: it must match the cube and the post-shaper exactly.
+//
+// Anchor: set DminR/G/B to the LINEAR value your clear film base reads, so the
+// base maps to density 0 (leave at 1.0 if you already normalised base upstream).
+// Diag: pass raw scanner density (OD) instead, so you can read channel ranges on
+// a scope/picker and confirm nothing important clips past DMAX. Disable the cube
+// while reading Diag.
+
+DEFINE_UI_PARAMS(DminR, DminR, DCTLUI_VALUE_BOX, 1.0)
+DEFINE_UI_PARAMS(DminG, DminG, DCTLUI_VALUE_BOX, 1.0)
+DEFINE_UI_PARAMS(DminB, DminB, DCTLUI_VALUE_BOX, 1.0)
+DEFINE_UI_PARAMS(diag, Diag, DCTLUI_CHECK_BOX, 0)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    const float eps = 1e-6f;
+    const float DMAX = 3.30f;
+
+    float r = p_R / _fmaxf(DminR, eps);
+    float g = p_G / _fmaxf(DminG, eps);
+    float b = p_B / _fmaxf(DminB, eps);
+
+    float dR = -_log10f(_fmaxf(r, eps));
+    float dG = -_log10f(_fmaxf(g, eps));
+    float dB = -_log10f(_fmaxf(b, eps));
+
+    if (diag) return make_float3(dR, dG, dB);
+
+    float nR = _fminf(_fmaxf(dR / DMAX, 0.0f), 1.0f);
+    float nG = _fminf(_fmaxf(dG / DMAX, 0.0f), 1.0f);
+    float nB = _fminf(_fmaxf(dB / DMAX, 0.0f), 1.0f);
+    return make_float3(nR, nG, nB);
+}

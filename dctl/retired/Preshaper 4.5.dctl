@@ -1,0 +1,19 @@
+// Preshaper 4.5.dctl -- linear scan -> density/4.5 (REVERSAL CORRIDOR) -- RETIRED 2026-07-26
+//
+// *** RETIRED. Do NOT pair with the current reversal cubes. ***
+// The shipped *_XYZ_D50 cubes moved to a 6.0 corridor on 2026-07-26; use
+// "Preshaper 6.0.dctl" / "Postshaper 6.0.dctl" instead. Feeding a 6.0-corridor
+// cube through this node rescales density by 4.5/6.0 with NO error or warning
+// -- the exact silent-mismatch failure register #5 describes.
+// Kept only to reprocess projects still on the pre-2026-07-26 cubes.
+//
+// Place BEFORE the reversal *_XYZ_D50 cubes. DMAX 4.5, NOT interchangeable with other corridors.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    const float eps = 1e-6f;
+    float3 out;
+    out.x = _fminf(_fmaxf(-_log10f(_fmaxf(p_R, eps)), 0.0f), 4.5f) / 4.5f;
+    out.y = _fminf(_fmaxf(-_log10f(_fmaxf(p_G, eps)), 0.0f), 4.5f) / 4.5f;
+    out.z = _fminf(_fmaxf(-_log10f(_fmaxf(p_B, eps)), 0.0f), 4.5f) / 4.5f;
+    return out;
+}

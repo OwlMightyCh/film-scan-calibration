@@ -1,0 +1,86 @@
+# --- Large binary capture / scan data (multi-GB, regenerable, not source) ---
+# Anchored: an unanchored "scan/" also matches engine/scan/, silently hiding
+# source files there. The binaries are covered by extension below regardless.
+/scan/
+gain_ratio_analysis/
+*.ARW
+*.arw
+*.exr
+*.tif
+*.tiff
+
+# Diagnostic / preview images
+*.jpg
+*.jpeg
+*.png
+
+# ...except the README gallery, which is a deliverable rather than clutter.
+# Every file there is a full-size original, byte-identical to its export and
+# carrying its Display P3 profile. Three are HDR and cannot be reduced at all:
+# any resize discards the ISO 21496-1 gain map. Sources stay untracked in
+# sample_images/.
+!docs/samples/*.jpg
+
+# ...and the rendered figure panels, which engine/c41/render_stage_figure.py
+# regenerates from a scan that is itself too large to hold here.
+!docs/figures/*.jpg
+
+# Staging area for source material: full-size exports, scan EXRs and roll
+# anchor JSON. The *published* copies live in docs/samples/ and docs/figures/,
+# so nothing here should ever be committed. Ignored wholesale rather than by
+# extension, because a 39 MB EXR reaching a public repository is not
+# recoverable.
+sample_images/
+
+# --- Generated engine outputs ---
+out/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+
+# --- macOS ---
+.DS_Store
+
+# --- Agent tooling for this working copy, not part of the project ---
+# CLAUDE.md, the subagent definitions in .claude/ and the claude.command
+# launcher configure how this repository is worked on. They describe a local
+# workflow rather than the calibration pipeline, so they stay on disk and out
+# of every commit. .claude/worktrees/ is transient in any case.
+.claude/
+CLAUDE.md
+claude.command
+
+# Basis-sensitivity ensemble artifacts — reproducible diagnostics, not deliverables
+builds/_ensemble/
+builds/_forensics/
+builds/_corridor/
+
+# Per-camera Status M cubes for the owner's own rigs. Deliberately NOT tracked:
+# they are 7.4 MB each, eleven of them, and every refit of the dye sets rewrites
+# the whole set, so tracking them grows history by ~81 MB per refit for files
+# that are excluded from the release by design (publish-release.sh drops
+# ^builds/_). Rebuild them from the canonical dye JSONs whenever a fit changes:
+#   c41_statusm_engine.py --stock <k> --sensor <camera> #       --dye-json data/films/<Prefix>_dye_density.json #       --out-cube builds/_a7r3/<Prefix>_StatusM_a7R3.cube
+builds/_a7r3/
+data/films/_ensemble/
+
+# Per-apparatus cube variants — one named camera each, not deliverables
+builds/sensor-*/
+
+# --- Manufacturer datasheets (copyright Kodak / Kodak Alaris / Fujifilm) ---
+# Not redistributed. See DATASHEETS.md for how to obtain each sheet; restore
+# them to these paths to re-run the digitizers in engine/.
+film_datasheet/*.pdf
+paper_datasheet/*.pdf
+knowledge/Kodak LAD.pdf
+
+# --- Third-party literature (publisher copyright) ---
+# Journal articles and conference papers obtained for reference. Never
+# redistributed, and never committed in ANY form: the whole directory is
+# excluded so that text or image extracts cannot leak past the publish guard.
+# That guard now rejects *.pdf, *.txt and any path under literature/, but this
+# directory remains the first line of defence. Extract PDFs to a scratch
+# directory outside the repository, never in place.
+literature/

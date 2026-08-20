@@ -1,0 +1,9 @@
+// Postshaper 6.0.dctl -- cube output/6.0 -> colorimetric density OD (REVERSAL CORRIDOR)
+// Place AFTER the reversal *_XYZ_D50 cubes. Pairs with Preshaper 6.0 (DMAX 6.0).
+// Supersedes the 4.5 pair (2026-07-26). Crossing corridors rescales density SILENTLY -- see register #5.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float3 out;
+    out.x = p_R * 6.0f; out.y = p_G * 6.0f; out.z = p_B * 6.0f;
+    return out;
+}
