@@ -1,0 +1,9 @@
+// Postshaper 5.25.dctl -- cube output/5.25 -> colorimetric density OD (REVERSAL CORRIDOR)
+// Place AFTER the reversal *_XYZ_D50 cubes. Pairs with Preshaper 5.25 (DMAX 5.25).
+// For the a7R III build, an example of a per-camera corridor. Crossing corridors rescales density SILENTLY -- see register #5.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float3 out;
+    out.x = p_R * 5.25f; out.y = p_G * 5.25f; out.z = p_B * 5.25f;
+    return out;
+}
