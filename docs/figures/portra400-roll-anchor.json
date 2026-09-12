@@ -1,0 +1,139 @@
+{
+ "roll_id": "portra400",
+ "measured": "2026-07-24",
+ "mode": "narrowband",
+ "film_family": "negative",
+ "density_convention": "scanner-space density relative to plain light (clear gate = 0.0)",
+ "dmin": {
+  "R": 0.4162,
+  "G": 0.8115,
+  "B": 1.0484
+ },
+ "dmin_exr_scale": {
+  "R": 0.2549,
+  "G": 0.3024,
+  "B": 0.3107
+ },
+ "dmin_exr_scale_note": "density vs sensor white level, matching raw_to_exr normalization \u2014 paste THESE into RollAnchor_ScanPrep.dctl when grading raw_to_exr EXRs; valid only if the dmin frame was shot at the roll's per-channel exposure and at the same ISO",
+ "frames": {
+  "plain": {
+   "R": {
+    "rate": 36.24652228238611,
+    "mean_adu": 0.18123261141193056,
+    "std_adu": 0.0018675707858301913,
+    "n_pixels": 2588185,
+    "exposure_s": 0.005,
+    "iso": 100,
+    "white_frac": 0.18123261141193056,
+    "file": "plain.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     994,
+     663,
+     2982,
+     1989
+    ],
+    "bimodal": false
+   },
+   "G": {
+    "rate": 80.73451659067157,
+    "mean_adu": 0.4036725829533579,
+    "std_adu": 0.0022648337578034137,
+    "n_pixels": 2586461,
+    "exposure_s": 0.005,
+    "iso": 100,
+    "white_frac": 0.4036725829533579,
+    "file": "plain.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     994,
+     663,
+     2982,
+     1989
+    ],
+    "bimodal": false
+   },
+   "B": {
+    "rate": 136.67693432656372,
+    "mean_adu": 0.6833846716328187,
+    "std_adu": 0.0038674521677921118,
+    "n_pixels": 2589228,
+    "exposure_s": 0.005,
+    "iso": 100,
+    "white_frac": 0.6833846716328187,
+    "file": "plain.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     994,
+     663,
+     2982,
+     1989
+    ],
+    "bimodal": false
+   }
+  },
+  "dmin": {
+   "R": {
+    "rate": 13.90017605425308,
+    "mean_adu": 0.5560070421701232,
+    "std_adu": 0.04722961957723035,
+    "n_pixels": 268498,
+    "exposure_s": 0.04,
+    "iso": 100,
+    "white_frac": 0.5560070421701232,
+    "file": "dmin.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     1946,
+     78,
+     2059,
+     2502
+    ],
+    "bimodal": false
+   },
+   "G": {
+    "rate": 12.461617832127786,
+    "mean_adu": 0.49846471328511144,
+    "std_adu": 0.045912617528439864,
+    "n_pixels": 268481,
+    "exposure_s": 0.04,
+    "iso": 100,
+    "white_frac": 0.49846471328511144,
+    "file": "dmin.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     1946,
+     78,
+     2059,
+     2502
+    ],
+    "bimodal": false
+   },
+   "B": {
+    "rate": 12.225209592648126,
+    "mean_adu": 0.48900838370592503,
+    "std_adu": 0.06497197099469434,
+    "n_pixels": 268463,
+    "exposure_s": 0.04,
+    "iso": 100,
+    "white_frac": 0.48900838370592503,
+    "file": "dmin.exr",
+    "source": "merged_frame",
+    "flat_field_applied": true,
+    "roi_px": [
+     1946,
+     78,
+     2059,
+     2502
+    ],
+    "bimodal": false
+   }
+  }
+ },
+ "flat_field_note": "plain-frame per-pixel std includes shot noise AND field nonuniformity; see std_adu/mean_adu per channel"
+}

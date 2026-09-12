@@ -1,0 +1,37 @@
+// Printer Lights ADX16.dctl — per-channel density trims on ADX16 code values
+//
+// Place AFTER "Vision3 to ADX16.cube" and BEFORE the transform that decodes
+// ADX16 to ACES (CSC.Academy.ADX16_to_ACES; in Resolve, input colour space
+// "ADX (16-bit)").
+//
+// This is the AESTHETIC slot of the ADX16 chain (metric/aesthetic
+// separation): the cube emits the negative's honest Academy Printing Density,
+// and the Academy decode reads it against the decode's own reference-film
+// assumption, so the decoded image carries a balance offset and a grey-axis
+// channel spread — removed here, not in the anchor, preshaper, or cube.
+// A per-channel trim on grey is expected use of this chain, not a defect.
+//
+// Trims are entered in DENSITY (OD) of image-dye printing density
+// (APD − APD_Dmin): +0.30 D on a channel ≈ 1 stop more of that colour in the
+// decoded positive; negative reduces it. Master shifts all three (exposure).
+// The ST 2065-3 per-channel factors k = (1.00, 0.92, 0.95) belong to the
+// code-value encoding and are applied below, so sliders read in true APD.
+//
+// Dial once per stock/rig on a known neutral, then reuse across rolls. No
+// datasheet presets exist for this chain: the trims absorb the decode's
+// reference-film mismatch as well as the stock, so they are empirical.
+
+DEFINE_UI_PARAMS(trimR, Trim R density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(trimG, Trim G density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(trimB, Trim B density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+DEFINE_UI_PARAMS(master, Master density, DCTLUI_SLIDER_FLOAT, 0.0, -0.5, 0.5, 0.001)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    // APD -> normalized ADX16 CV (ST 2065-3 eq. 1): CV = k*APD*8000 + 1520,
+    // written as CV/65535, so an APD offset lands as k*8000/65535 per channel
+    const float D_TO_CV = 8000.0f / 65535.0f;
+    return make_float3(p_R + (trimR + master) * 1.00f * D_TO_CV,
+                       p_G + (trimG + master) * 0.92f * D_TO_CV,
+                       p_B + (trimB + master) * 0.95f * D_TO_CV);
+}

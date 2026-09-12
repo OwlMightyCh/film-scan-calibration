@@ -1,0 +1,26 @@
+// XYZ D50 to DWG.dctl — D50-route working-space matrix (replaces the CST node)
+//
+// Place AFTER "Density to Linear.dctl" in the D50 chain. Input is the cube's
+// WHITE-RELATIVE XYZ (film base = 1,1,1; each channel was normalized by the
+// D50 white), which is not true CIE XYZ — so Resolve's CST cannot convert it
+// correctly with or without its white-point-adaptation checkbox. This matrix
+// does the full job explicitly in one step:
+//
+//   un-normalize (x D50 white 0.9642/1.0/0.8251)
+//   -> Bradford chromatic adaptation D50 -> D65
+//   -> XYZ -> DaVinci Wide Gamut (linear, D65)
+//
+// Film-base white lands exactly on DWG neutral (1,1,1). Timeline should be
+// DaVinci WG / Intermediate-linear at this point; grade and the P3-D65 PQ
+// output transform follow downstream.
+//
+// Generated 2026-07-17 with colour-science 0.4.7 (CIE 1931 2-deg tables).
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float3 out;
+    out.x =  1.403215f * p_R - 0.316310f * p_G - 0.087044f * p_B;
+    out.y = -0.460468f * p_R + 1.271085f * p_G + 0.189428f * p_B;
+    out.z =  0.065798f * p_R + 0.093117f * p_G + 0.841073f * p_B;
+    return out;
+}
