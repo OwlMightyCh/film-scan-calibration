@@ -1,0 +1,9 @@
+// Postshaper 5.0.dctl -- cube output/5.0 -> colorimetric density OD (REVERSAL CORRIDOR)
+// Place AFTER the reversal *_XYZ_D50 cubes. Pairs with Preshaper 5.0 (DMAX 5.0).
+// For the shipped monochrome / sensor-free reversal cubes. Crossing corridors rescales density SILENTLY -- see register #5.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float3 out;
+    out.x = p_R * 5.0f; out.y = p_G * 5.0f; out.z = p_B * 5.0f;
+    return out;
+}

@@ -1,0 +1,343 @@
+{
+ "title": "SuperiaPremium400 modulation transfer function, traced from the datasheet chart",
+ "stock": "SuperiaPremium400",
+ "family": "C-41",
+ "source": {
+  "pdf": "Superia Premium 400 [JP].pdf",
+  "page_index": 4,
+  "datasheet_code": "013AR0324A",
+  "revision": "2009",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "Daylight",
+  "process_as_printed": "CN-16"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "MTF": {
+   "cycles_per_mm": [
+    2.567,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    82.54,
+    90.852,
+    100.0,
+    103.566
+   ],
+   "response_pct": [
+    116.7,
+    116.7,
+    116.73,
+    116.74,
+    116.75,
+    116.74,
+    116.71,
+    116.63,
+    116.5,
+    116.31,
+    116.04,
+    115.67,
+    115.18,
+    114.56,
+    113.77,
+    112.79,
+    111.59,
+    110.15,
+    108.44,
+    106.43,
+    104.09,
+    101.39,
+    98.34,
+    94.95,
+    91.2,
+    87.14,
+    82.99,
+    78.81,
+    74.59,
+    70.32,
+    65.98,
+    61.55,
+    57.0,
+    52.35,
+    47.57,
+    42.69,
+    37.78,
+    32.97,
+    28.45,
+    24.39,
+    23.03
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  }
+ },
+ "summary": {
+  "MTF": {
+   "support_cycles_per_mm": [
+    2.57,
+    103.57
+   ],
+   "peak_response_pct": 116.8,
+   "chart_end": {
+    "cycles_per_mm": 103.6,
+    "response_pct": 23.0
+   },
+   "response_pct_at": {
+    "5": 116.5,
+    "10": 112.8,
+    "20": 97.6,
+    "30": 81.1,
+    "40": 68.4,
+    "50": 58.0,
+    "60": 49.1,
+    "80": 34.5,
+    "100": 24.4
+   },
+   "mtf50_cycles_per_mm": 59.0,
+   "mtf30_cycles_per_mm": 87.8,
+   "mtf20_cycles_per_mm": null
+  }
+ },
+ "digitization_audit": {
+  "route": "vector",
+  "frame_device_pt": [
+   96.281,
+   506.175,
+   273.6,
+   653.924
+  ],
+  "frame_drawn_as": "stroked rectangle or line path, PyMuPDF get_drawings()",
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.013392*x_pt + -1.336984",
+   "gridlines_pt": [
+    151.9,
+    174.8,
+    197.05,
+    226.13,
+    249.51
+   ],
+   "gridline_values": [
+    5,
+    10,
+    20,
+    50,
+    100
+   ],
+   "gridline_fit_worst_pt": 0.571
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    2,
+    150
+   ],
+   "device_to_data": "log10(response_pct) = -0.012715*y_pt + 8.606246",
+   "gridlines_pt": [
+    520.01,
+    531.96,
+    542.82,
+    560.62,
+    574.51,
+    597.21,
+    610.69,
+    621.88,
+    639.8
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5,
+    3
+   ],
+   "gridline_fit_worst_pt": 0.987
+  },
+  "label_check": {
+   "numerals_checked": 18,
+   "worst_offset_pt": 2.32,
+   "rows": [
+    {
+     "axis": "x",
+     "value": 1.0,
+     "glyph_centre_pt": 97.51,
+     "model_pt": 99.84,
+     "offset_pt": -2.32
+    },
+    {
+     "axis": "x",
+     "value": 5.0,
+     "glyph_centre_pt": 152.08,
+     "model_pt": 152.03,
+     "offset_pt": 0.05
+    },
+    {
+     "axis": "x",
+     "value": 10.0,
+     "glyph_centre_pt": 175.51,
+     "model_pt": 174.51,
+     "offset_pt": 1.0
+    },
+    {
+     "axis": "x",
+     "value": 20.0,
+     "glyph_centre_pt": 197.51,
+     "model_pt": 196.99,
+     "offset_pt": 0.53
+    },
+    {
+     "axis": "x",
+     "value": 50.0,
+     "glyph_centre_pt": 226.09,
+     "model_pt": 226.7,
+     "offset_pt": -0.62
+    },
+    {
+     "axis": "x",
+     "value": 100.0,
+     "glyph_centre_pt": 248.94,
+     "model_pt": 249.18,
+     "offset_pt": -0.24
+    },
+    {
+     "axis": "x",
+     "value": 200.0,
+     "glyph_centre_pt": 270.66,
+     "model_pt": 271.66,
+     "offset_pt": -1.0
+    },
+    {
+     "axis": "y",
+     "value": 2.0,
+     "glyph_centre_pt": 652.88,
+     "model_pt": 653.17,
+     "offset_pt": -0.29
+    },
+    {
+     "axis": "y",
+     "value": 3.0,
+     "glyph_centre_pt": 640.87,
+     "model_pt": 639.32,
+     "offset_pt": 1.55
+    },
+    {
+     "axis": "y",
+     "value": 5.0,
+     "glyph_centre_pt": 623.73,
+     "model_pt": 621.88,
+     "offset_pt": 1.85
+    },
+    {
+     "axis": "y",
+     "value": 7.0,
+     "glyph_centre_pt": 611.73,
+     "model_pt": 610.38,
+     "offset_pt": 1.35
+    },
+    {
+     "axis": "y",
+     "value": 10.0,
+     "glyph_centre_pt": 598.87,
+     "model_pt": 598.2,
+     "offset_pt": 0.67
+    },
+    {
+     "axis": "y",
+     "value": 20.0,
+     "glyph_centre_pt": 575.74,
+     "model_pt": 574.53,
+     "offset_pt": 1.21
+    },
+    {
+     "axis": "y",
+     "value": 30.0,
+     "glyph_centre_pt": 561.16,
+     "model_pt": 560.68,
+     "offset_pt": 0.49
+    },
+    {
+     "axis": "y",
+     "value": 50.0,
+     "glyph_centre_pt": 544.02,
+     "model_pt": 543.23,
+     "offset_pt": 0.79
+    },
+    {
+     "axis": "y",
+     "value": 70.0,
+     "glyph_centre_pt": 532.88,
+     "model_pt": 531.74,
+     "offset_pt": 1.14
+    },
+    {
+     "axis": "y",
+     "value": 100.0,
+     "glyph_centre_pt": 520.59,
+     "model_pt": 519.56,
+     "offset_pt": 1.04
+    },
+    {
+     "axis": "y",
+     "value": 150.0,
+     "glyph_centre_pt": 506.88,
+     "model_pt": 505.71,
+     "offset_pt": 1.18
+    }
+   ],
+   "note": "glyph centre vs model; centring skew of 1-2 pt is the text box, not the axis (DIGITISING.md lesson 6)"
+  },
+  "label_assignment": {
+   "method": "single unlabelled curve",
+   "curves": 1
+  },
+  "bezier_note": "cubic segments evaluated at 25 points; line segments taken as drawn"
+ }
+}

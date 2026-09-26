@@ -1,0 +1,12 @@
+// Preshaper 5.25.dctl -- linear scan -> density/5.25 (REVERSAL CORRIDOR)
+// Place BEFORE the reversal *_XYZ_D50 cubes. DMAX 5.25, NOT interchangeable with other corridors.
+// For the a7R III build, an example of a per-camera corridor. Crossing corridors rescales density SILENTLY -- see register #5.
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    const float eps = 1e-6f;
+    float3 out;
+    out.x = _fminf(_fmaxf(-_log10f(_fmaxf(p_R, eps)), 0.0f), 5.25f) / 5.25f;
+    out.y = _fminf(_fmaxf(-_log10f(_fmaxf(p_G, eps)), 0.0f), 5.25f) / 5.25f;
+    out.z = _fminf(_fmaxf(-_log10f(_fmaxf(p_B, eps)), 0.0f), 5.25f) / 5.25f;
+    return out;
+}

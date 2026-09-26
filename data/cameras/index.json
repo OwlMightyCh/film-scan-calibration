@@ -1,0 +1,399 @@
+{
+  "description": "Camera spectral sensitivities in the key layout the engines' CFA reader expects. Group A of the ACES set: consumer interchangeable-lens bodies.",
+  "notice": "Camera spectral sensitivities from AcademySoftwareFoundation/rawtoaces-data, licensed Apache-2.0. Values are reproduced verbatim; only the arrangement of the numbers has changed. This file is therefore Apache-2.0, not the CC BY 4.0 that covers the rest of data/.",
+  "generated_by": "engine/scan/aces_ssf_import.py --all",
+  "count": 44,
+  "cameras": [
+    {
+      "camera_name": "Canon Digital Rebel XTi",
+      "manufacturer": "Canon",
+      "model": "Digital Rebel XTi",
+      "file": "Canon_Digital_Rebel_XTi_ssf.json",
+      "exif_aliases": [
+        "Canon EOS 400D",
+        "Canon Kiss Digital X"
+      ],
+      "sha256": "ea37526e815170e836bc920f7967266cef384ef831dd11fc0c992aff59561783"
+    },
+    {
+      "camera_name": "Canon EOS 100D",
+      "manufacturer": "Canon",
+      "model": "EOS 100D",
+      "file": "Canon_EOS_100D_ssf.json",
+      "exif_aliases": [
+        "Canon EOS Rebel SL1",
+        "Canon Kiss X7"
+      ],
+      "sha256": "a6a160d617f531430df9ee0d18dc7c84613a953a89f94e90e4b32c665fe898b9"
+    },
+    {
+      "camera_name": "Canon EOS 200D",
+      "manufacturer": "Canon",
+      "model": "EOS 200D",
+      "file": "Canon_EOS_200D_ssf.json",
+      "exif_aliases": [
+        "Canon EOS Rebel SL2",
+        "Canon Kiss X9"
+      ],
+      "sha256": "f9aaa157bf8c1499990b0c56f4f78636da650b6f4ef3fbfc6fd2a02daf7bcebc"
+    },
+    {
+      "camera_name": "Canon EOS 200D II",
+      "manufacturer": "Canon",
+      "model": "EOS 200D II",
+      "file": "Canon_EOS_200D_II_ssf.json",
+      "exif_aliases": [
+        "Canon EOS 250D",
+        "Canon EOS Rebel SL3",
+        "Canon Kiss X10"
+      ],
+      "sha256": "74eae917669a1791037861ab52ff43f7c22796d200964476cab1cfa21b3c6b7e"
+    },
+    {
+      "camera_name": "Canon EOS 5D",
+      "manufacturer": "Canon",
+      "model": "EOS 5D",
+      "file": "Canon_EOS_5D_ssf.json",
+      "exif_aliases": [],
+      "sha256": "cbb73ad5103aeb9a5f182b56c14e665af3036de02ad8493207d94085bb067d1d"
+    },
+    {
+      "camera_name": "Canon EOS 5D Mark II",
+      "manufacturer": "Canon",
+      "model": "EOS 5D Mark II",
+      "file": "Canon_EOS_5D_Mark_II_ssf.json",
+      "exif_aliases": [],
+      "sha256": "3dd2394e07f00c3fff51de631394ff67b4b72463657f4383ac14855969b93c14"
+    },
+    {
+      "camera_name": "Canon EOS 5D Mark III",
+      "manufacturer": "Canon",
+      "model": "EOS 5D Mark III",
+      "file": "Canon_EOS_5D_Mark_III_ssf.json",
+      "exif_aliases": [],
+      "sha256": "d8f9db387399dd6611edf5d1660764cf7b78f402e0a9bb68eeea9cdc64628e88"
+    },
+    {
+      "camera_name": "Canon EOS 5D Mark IV",
+      "manufacturer": "Canon",
+      "model": "EOS 5D Mark IV",
+      "file": "Canon_EOS_5D_Mark_IV_ssf.json",
+      "exif_aliases": [],
+      "sha256": "c3d5bc6a271fa2d0270386e27aa5dcf258c64223322a1730b03815497375be29"
+    },
+    {
+      "camera_name": "Canon EOS 5DS",
+      "manufacturer": "Canon",
+      "model": "EOS 5DS",
+      "file": "Canon_EOS_5DS_ssf.json",
+      "exif_aliases": [
+        "Canon EOS 5DS R"
+      ],
+      "sha256": "f624c3a2b90d4986070939c9d2ee3ed4d61100e123724e3090a5024dee533091"
+    },
+    {
+      "camera_name": "Canon EOS 600D",
+      "manufacturer": "Canon",
+      "model": "EOS 600D",
+      "file": "Canon_EOS_600D_ssf.json",
+      "exif_aliases": [
+        "Canon EOS Rebel T3i",
+        "Canon Kiss X5"
+      ],
+      "sha256": "9a4700eb7228c7731bcb4e92a3dae75a510dbbf1308d7f6fcb8ec7199e3d1adc"
+    },
+    {
+      "camera_name": "Canon EOS M",
+      "manufacturer": "Canon",
+      "model": "EOS M",
+      "file": "Canon_EOS_M_ssf.json",
+      "exif_aliases": [],
+      "sha256": "ceb7015727f88e13bcb486e688c1aefa5c7eae1e24fc0873c84d03f23a096686"
+    },
+    {
+      "camera_name": "Canon EOS R",
+      "manufacturer": "Canon",
+      "model": "EOS R",
+      "file": "Canon_EOS_R_ssf.json",
+      "exif_aliases": [],
+      "sha256": "94069a205897ee46426e79816cca82cef641ed2ef5b4a5d1e94fbe89cacaa362"
+    },
+    {
+      "camera_name": "Canon EOS R10",
+      "manufacturer": "Canon",
+      "model": "EOS R10",
+      "file": "Canon_EOS_R10_ssf.json",
+      "exif_aliases": [
+        "Canon EOS R50"
+      ],
+      "sha256": "288a0398decdf65699c5c88a2dc48644dcd7389bb1d922969ac1e773ba18a282"
+    },
+    {
+      "camera_name": "Canon EOS R5",
+      "manufacturer": "Canon",
+      "model": "EOS R5",
+      "file": "Canon_EOS_R5_ssf.json",
+      "exif_aliases": [
+        "Canon EOS R5 C"
+      ],
+      "sha256": "6d35746dc44a3e44f3cf7939e957c15bc3f3c62b07a674749b42c140fc00df29"
+    },
+    {
+      "camera_name": "Canon EOS R5m2",
+      "manufacturer": "Canon",
+      "model": "EOS R5m2",
+      "file": "Canon_EOS_R5m2_ssf.json",
+      "exif_aliases": [
+        "Canon EOS R5 Mark II"
+      ],
+      "sha256": "b58e96628aa2021eecb2bd3965dfe4fcc2af9a6543a35c739f0247f0687d705b"
+    },
+    {
+      "camera_name": "Canon EOS R6",
+      "manufacturer": "Canon",
+      "model": "EOS R6",
+      "file": "Canon_EOS_R6_ssf.json",
+      "exif_aliases": [],
+      "sha256": "8ff0f7329084addeafa433c832aec6e13c5125e7373cec34b4c7d42dfcb8eceb"
+    },
+    {
+      "camera_name": "Canon EOS R6m2",
+      "manufacturer": "Canon",
+      "model": "EOS R6m2",
+      "file": "Canon_EOS_R6m2_ssf.json",
+      "exif_aliases": [
+        "Canon EOS R8"
+      ],
+      "sha256": "6819e47131dfdb1836f32970017aed7b7baa4889553936c23065dfabbb527d5d"
+    },
+    {
+      "camera_name": "Canon EOS RP",
+      "manufacturer": "Canon",
+      "model": "EOS RP",
+      "file": "Canon_EOS_RP_ssf.json",
+      "exif_aliases": [
+        "Canon EOS 6D Mark II"
+      ],
+      "sha256": "ed3df43361ff0f6e32075f544b0c72ad180e00234fb8c02d12c323c6c932cf7c"
+    },
+    {
+      "camera_name": "Canon EOS-1D X Mark II",
+      "manufacturer": "Canon",
+      "model": "EOS-1D X Mark II",
+      "file": "Canon_EOS-1D_X_Mark_II_ssf.json",
+      "exif_aliases": [],
+      "sha256": "719e12a54d7eb467351ea166401d9a76c2a4faa0c31ae08d53ab18648d61f0a2"
+    },
+    {
+      "camera_name": "Canon EOS-1Ds Mark II",
+      "manufacturer": "Canon",
+      "model": "EOS-1Ds Mark II",
+      "file": "Canon_EOS-1Ds_Mark_II_ssf.json",
+      "exif_aliases": [],
+      "sha256": "f2b356ba91c51bd570db478f4dfce8d4a951b3cb8ff0dc8a539ee75a17436e1f"
+    },
+    {
+      "camera_name": "Canon EOS-1Ds Mark III",
+      "manufacturer": "Canon",
+      "model": "EOS-1Ds Mark III",
+      "file": "Canon_EOS-1Ds_Mark_III_ssf.json",
+      "exif_aliases": [],
+      "sha256": "337420bff14a676aec6ffe7378e083fc22d1cf01237236cb3bd66ca7c8f2fe7a"
+    },
+    {
+      "camera_name": "Fujifilm GFX 100",
+      "manufacturer": "Fujifilm",
+      "model": "GFX 100",
+      "file": "Fujifilm_GFX_100_ssf.json",
+      "exif_aliases": [
+        "Fujifilm GFX100S"
+      ],
+      "sha256": "d47bd7ec461fb9b0af29c248d5a1446df3db930d1f8e899debedf871b4d0939a"
+    },
+    {
+      "camera_name": "Nikon D200",
+      "manufacturer": "Nikon",
+      "model": "D200",
+      "file": "Nikon_D200_ssf.json",
+      "exif_aliases": [],
+      "sha256": "872cacb38513d81a332eb49731b4a98ba521c539e04685453318cd10d36db94b"
+    },
+    {
+      "camera_name": "Nikon D3300",
+      "manufacturer": "Nikon",
+      "model": "D3300",
+      "file": "Nikon_D3300_ssf.json",
+      "exif_aliases": [],
+      "sha256": "c8b1ef05410719227066d4e214a949a867ff1d61ec12927cfd88b9c1a2bc3efc"
+    },
+    {
+      "camera_name": "Nikon D5100",
+      "manufacturer": "Nikon",
+      "model": "D5100",
+      "file": "Nikon_D5100_ssf.json",
+      "exif_aliases": [],
+      "sha256": "0800c28a35256c1efd7039acff31064f7a778ee040f99fedcd0f13f393bb3ee4"
+    },
+    {
+      "camera_name": "Nikon D5300",
+      "manufacturer": "Nikon",
+      "model": "D5300",
+      "file": "Nikon_D5300_ssf.json",
+      "exif_aliases": [],
+      "sha256": "a48420e76ccfcb60f8d0cad76dd64787e9416d44f71c99ce200a13776c6a9e29"
+    },
+    {
+      "camera_name": "Nikon D70",
+      "manufacturer": "Nikon",
+      "model": "D70",
+      "file": "Nikon_D70_ssf.json",
+      "exif_aliases": [],
+      "sha256": "8fb861c9aeae2a338931edc2358ecaf99e154e0afe5f75167aebe6378110ba1b"
+    },
+    {
+      "camera_name": "Nikon D700",
+      "manufacturer": "Nikon",
+      "model": "D700",
+      "file": "Nikon_D700_ssf.json",
+      "exif_aliases": [],
+      "sha256": "28d4e1d91335bf2aa4d0486afe3abd676e856ba904c9c31715c9b2d172b4a211"
+    },
+    {
+      "camera_name": "Nikon D7000",
+      "manufacturer": "Nikon",
+      "model": "D7000",
+      "file": "Nikon_D7000_ssf.json",
+      "exif_aliases": [],
+      "sha256": "4002530a868b45d11ddc2e11b8db144ae2011efdda04d25ff10a2f006494ed95"
+    },
+    {
+      "camera_name": "Nikon D800E",
+      "manufacturer": "Nikon",
+      "model": "D800E",
+      "file": "Nikon_D800E_ssf.json",
+      "exif_aliases": [
+        "Nikon D800"
+      ],
+      "sha256": "8e8bd2ee474db73361bc4f37937966376ddc6dbcb19fd42dc63fa91bdb93ec40"
+    },
+    {
+      "camera_name": "Nikon D810",
+      "manufacturer": "Nikon",
+      "model": "D810",
+      "file": "Nikon_D810_ssf.json",
+      "exif_aliases": [],
+      "sha256": "fe768979da5b732f3a9974ed04cc81d7446ee27500893bf456207624008d1206"
+    },
+    {
+      "camera_name": "Nikon D850",
+      "manufacturer": "Nikon",
+      "model": "D850",
+      "file": "Nikon_D850_ssf.json",
+      "exif_aliases": [],
+      "sha256": "8a22f9092a4c19fc128f3f8fb0dae6d5e67e17b5d9c01f646024efaacdbed9d0"
+    },
+    {
+      "camera_name": "Nikon Z f",
+      "manufacturer": "Nikon",
+      "model": "Z f",
+      "file": "Nikon_Z_f_ssf.json",
+      "exif_aliases": [
+        "Nikon Z 6_2"
+      ],
+      "sha256": "0fafdf21d42b5873e2d2db77bfbb075120e01697111944d12ff0529ac44d3943"
+    },
+    {
+      "camera_name": "Panasonic DC-GX9",
+      "manufacturer": "Panasonic",
+      "model": "DC-GX9",
+      "file": "Panasonic_DC-GX9_ssf.json",
+      "exif_aliases": [],
+      "sha256": "b354d7fb9b3df822e053505e784b9fbede21f0f5ae4c30e8c899497e826b3bb7"
+    },
+    {
+      "camera_name": "Sony ILCE-6400",
+      "manufacturer": "Sony",
+      "model": "ILCE-6400",
+      "file": "Sony_ILCE-6400_ssf.json",
+      "exif_aliases": [],
+      "sha256": "9d44a700c154bc6fcdc63f2e8c8af7f1758e3181a0ccbf374b85461c8fc5fde6"
+    },
+    {
+      "camera_name": "Sony ILCE-7CM2",
+      "manufacturer": "Sony",
+      "model": "ILCE-7CM2",
+      "file": "Sony_ILCE-7CM2_ssf.json",
+      "exif_aliases": [],
+      "sha256": "4d8843e19d7dd85099d7533e12db638c91586651102095ebc6319ce297fcb399"
+    },
+    {
+      "camera_name": "Sony ILCE-7M3",
+      "manufacturer": "Sony",
+      "model": "ILCE-7M3",
+      "file": "Sony_ILCE-7M3_ssf.json",
+      "exif_aliases": [],
+      "sha256": "c6006a237e63e530bf23e4a8b000dce6875305c9c24e54d1410bbbbb8654195f"
+    },
+    {
+      "camera_name": "Sony ILCE-7M4",
+      "manufacturer": "Sony",
+      "model": "ILCE-7M4",
+      "file": "Sony_ILCE-7M4_ssf.json",
+      "exif_aliases": [],
+      "sha256": "f7a8dc024ef923820c9d26ef4c31dd48deb28f0ea25cf70dd5a1bce3623576f8"
+    },
+    {
+      "camera_name": "Sony ILCE-7RM2",
+      "manufacturer": "Sony",
+      "model": "ILCE-7RM2",
+      "file": "Sony_ILCE-7RM2_ssf.json",
+      "exif_aliases": [],
+      "sha256": "3a3d6650421e6ba835780b8879b885712d2d4f179788899ba0d735c619c5065c"
+    },
+    {
+      "camera_name": "Sony ILCE-7RM3",
+      "manufacturer": "Sony",
+      "model": "ILCE-7RM3",
+      "file": "Sony_ILCE-7RM3_ssf.json",
+      "exif_aliases": [
+        "Sony ILCE-7RM3A"
+      ],
+      "sha256": "0359aad186a62ba8be765416c0fc764d9905aa47062961e8a2d447b02e349fa8"
+    },
+    {
+      "camera_name": "Sony ILCE-7RM4",
+      "manufacturer": "Sony",
+      "model": "ILCE-7RM4",
+      "file": "Sony_ILCE-7RM4_ssf.json",
+      "exif_aliases": [
+        "Sony ILCE-7RM5",
+        "Sony ILCE-7RM4A"
+      ],
+      "sha256": "2e2efe8ca7b92ba65e54029e751d8e363ba1e40dec513fd8d65f9357bc592033"
+    },
+    {
+      "camera_name": "Sony ILCE-7SM2",
+      "manufacturer": "Sony",
+      "model": "ILCE-7SM2",
+      "file": "Sony_ILCE-7SM2_ssf.json",
+      "exif_aliases": [],
+      "sha256": "14570ed48d5e93d75433a96f3402398aa5f341f14ac5f6421440f7f97ea1b493"
+    },
+    {
+      "camera_name": "Sony ILCE-7SM3",
+      "manufacturer": "Sony",
+      "model": "ILCE-7SM3",
+      "file": "Sony_ILCE-7SM3_ssf.json",
+      "exif_aliases": [],
+      "sha256": "de172c494bce62a65681d5451d13f34c3c6809663f07ec50d894acbd5a777d17"
+    },
+    {
+      "camera_name": "Sony ILCE-9",
+      "manufacturer": "Sony",
+      "model": "ILCE-9",
+      "file": "Sony_ILCE-9_ssf.json",
+      "exif_aliases": [],
+      "sha256": "60a9d16df752934ff0079667b7d1518228e941ca72a134e4914421667fce18d4"
+    }
+  ]
+}

@@ -1,0 +1,412 @@
+{
+ "title": "V350D modulation transfer function, traced from the datasheet chart",
+ "stock": "V350D",
+ "family": "ECN-2",
+ "source": {
+  "pdf": "V3 50D.pdf",
+  "page_index": 2,
+  "datasheet_code": "H-1-5203",
+  "revision": "not recorded",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "5500K Daylight",
+  "process_as_printed": "ECN-2"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "B": {
+   "cycles_per_mm": [
+    14.183,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    80.08
+   ],
+   "response_pct": [
+    105.27,
+    102.36,
+    95.26,
+    93.32,
+    89.91,
+    86.82,
+    82.1,
+    77.07,
+    61.25,
+    57.03,
+    52.76,
+    46.73,
+    45.08,
+    41.75,
+    39.19,
+    35.09,
+    29.0,
+    27.79,
+    24.64,
+    23.06
+   ],
+   "ink_hit": 0.989,
+   "merged_spans_cycles_per_mm": [
+    [
+     14.2,
+     19.2
+    ],
+    [
+     20.8,
+     44.1
+    ],
+    [
+     52.4,
+     57.3
+    ],
+    [
+     62.2,
+     64.2
+    ]
+   ],
+   "measured_fraction": 0.204
+  },
+  "G": {
+   "cycles_per_mm": [
+    14.183,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    80.08
+   ],
+   "response_pct": [
+    105.94,
+    102.83,
+    95.26,
+    93.32,
+    89.91,
+    86.82,
+    82.1,
+    77.07,
+    61.25,
+    57.03,
+    52.76,
+    46.73,
+    45.08,
+    46.99,
+    40.49,
+    35.09,
+    29.0,
+    24.24,
+    19.29,
+    17.74
+   ],
+   "ink_hit": 0.984,
+   "merged_spans_cycles_per_mm": [
+    [
+     14.2,
+     19.2
+    ],
+    [
+     20.8,
+     44.1
+    ],
+    [
+     52.4,
+     57.3
+    ],
+    [
+     62.2,
+     64.2
+    ]
+   ],
+   "measured_fraction": 0.199
+  },
+  "R": {
+   "cycles_per_mm": [
+    14.183,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    80.08
+   ],
+   "response_pct": [
+    112.32,
+    107.26,
+    95.26,
+    93.32,
+    89.91,
+    86.82,
+    82.1,
+    77.07,
+    61.25,
+    57.03,
+    52.76,
+    46.73,
+    40.68,
+    35.32,
+    29.76,
+    24.76,
+    19.29,
+    15.91,
+    12.61,
+    11.05
+   ],
+   "ink_hit": 0.957,
+   "merged_spans_cycles_per_mm": [
+    [
+     14.2,
+     19.2
+    ],
+    [
+     20.8,
+     39.0
+    ]
+   ],
+   "measured_fraction": 0.376
+  }
+ },
+ "summary": {
+  "B": {
+   "support_cycles_per_mm": [
+    14.18,
+    80.08
+   ],
+   "peak_response_pct": 105.3,
+   "chart_end": {
+    "cycles_per_mm": 80.1,
+    "response_pct": 23.1
+   },
+   "response_pct_at": {
+    "20": 89.4,
+    "30": 56.6,
+    "40": 46.9,
+    "50": 39.6,
+    "60": 31.0,
+    "80": 23.1
+   },
+   "mtf50_cycles_per_mm": 35.3,
+   "mtf50_in_merged_span": true,
+   "mtf30_cycles_per_mm": 60.9,
+   "mtf20_cycles_per_mm": null
+  },
+  "G": {
+   "support_cycles_per_mm": [
+    14.18,
+    80.08
+   ],
+   "peak_response_pct": 105.9,
+   "chart_end": {
+    "cycles_per_mm": 80.1,
+    "response_pct": 17.7
+   },
+   "response_pct_at": {
+    "20": 89.4,
+    "30": 56.6,
+    "40": 46.9,
+    "50": 42.1,
+    "60": 31.0,
+    "80": 17.8
+   },
+   "mtf50_cycles_per_mm": 35.3,
+   "mtf50_in_merged_span": true,
+   "mtf30_cycles_per_mm": 60.9,
+   "mtf20_cycles_per_mm": 74.7
+  },
+  "R": {
+   "support_cycles_per_mm": [
+    14.18,
+    80.08
+   ],
+   "peak_response_pct": 112.3,
+   "chart_end": {
+    "cycles_per_mm": 80.1,
+    "response_pct": 11.1
+   },
+   "response_pct_at": {
+    "20": 89.4,
+    "30": 56.6,
+    "40": 43.7,
+    "50": 31.0,
+    "60": 21.1,
+    "80": 11.1
+   },
+   "mtf50_cycles_per_mm": 35.5,
+   "mtf50_in_merged_span": true,
+   "mtf30_cycles_per_mm": 50.8,
+   "mtf20_cycles_per_mm": 61.1
+  }
+ },
+ "digitization_audit": {
+  "route": "raster",
+  "render_dpi": 300,
+  "clip_device_pt": [
+   48,
+   205,
+   288,
+   400
+  ],
+  "frame_px": [
+   154.0,
+   102.5,
+   957.0,
+   709.5
+  ],
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    700
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.003546*x_px + -0.546813",
+   "gridlines_px": [
+    239.0,
+    289.0,
+    324.0,
+    351.0,
+    436.0,
+    521.5,
+    634.0,
+    655.0,
+    803.0
+   ],
+   "gridline_values": [
+    2,
+    3,
+    4,
+    5,
+    10,
+    20,
+    50,
+    60,
+    200
+   ],
+   "gridline_fit_worst_px": 0.68
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(response_pct) = -0.003803*y_px + 2.693794",
+   "gridlines_px": [
+    183.0,
+    223.0,
+    241.0,
+    261.0,
+    319.5,
+    367.0,
+    445.0,
+    457.5,
+    486.0,
+    525.0
+   ],
+   "gridline_values": [
+    100,
+    70,
+    60,
+    50,
+    30,
+    20,
+    10,
+    9,
+    7,
+    5
+   ],
+   "gridline_fit_worst_px": 0.73
+  },
+  "label_check": {
+   "note": "raster sheet: printed numerals verified by LOOKING at the overlay, not by text extraction"
+  },
+  "label_assignment": {
+   "method": "right-end top-down order from the registry, entered by eye",
+   "order": [
+    "B",
+    "G",
+    "R"
+   ]
+  },
+  "glyph_components_removed": 89,
+  "line_width_px": 8.0,
+  "gridlines_excluded": null,
+  "trace_start": {
+   "column": 691,
+   "cycles_per_mm": 80.1
+  },
+  "duplicate_fraction": {
+   "B/G": 0.796,
+   "B/R": 0.543,
+   "G/R": 0.543
+  },
+  "ink_level_crossings_cycles_per_mm": {
+   "50": [
+    39.3
+   ],
+   "30": [
+    52.8,
+    65.1
+   ],
+   "20": [
+    63.2,
+    75.1
+   ]
+  },
+  "crossing_note": "columns where a track was dead-reckoned (crossing inside one line width, or a printed line shared by two tracks) are listed per channel in merged_spans; values there are interpolation, not measurement"
+ },
+ "crossing_bracket": {
+  "mtf50_cycles_per_mm": [
+   35.3,
+   39.3
+  ],
+  "printed_lines_crossing_50pct": [
+   39.3
+  ],
+  "note": "at least one channel's MTF50 falls where the printed curves cross inside one line width; channel identity there is not measurable from the ink, so every channel's MTF50 is carried as this min..max over the printed lines that cross the 50 % row (read on the ink independently of the tracks) and the tracked values"
+ }
+}
