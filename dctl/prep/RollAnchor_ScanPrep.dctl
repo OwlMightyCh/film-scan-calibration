@@ -1,0 +1,37 @@
+// RollAnchor_ScanPrep.dctl — per-roll Dmin anchoring (scan prep node)
+//
+// Place BEFORE the preshaper, on linear scanner data (camera-linear, no log).
+// Enter the three EXR-SCALE Dmin values reported by the roll-anchor engine
+// (engine/scan/roll_anchor_gui.py, "Dmin (EXR scale)" line) for the roll
+// being graded. Do NOT use the plain-light-scale values: raw_to_exr EXRs
+// are normalized to sensor white level, not to plain light, so the two
+// scales differ by a per-channel offset (that pair is for datasheet
+// comparison only).
+//
+// What it does: divides each channel by the roll's film-base transmission
+// (multiplies linear by 10^Dmin), so the clear base lands at density 0.0
+// entering the preshaper. This pins the cube's density scale to the roll:
+// base-relative density, the convention every cube in this project expects.
+// Dmin varies per roll with E-6 processing (within spec), hence per-roll
+// values rather than constants.
+//
+// This is a METRIC operation (measured, per-roll). Aesthetic offsets
+// (printer-lights-style trims, taste white balance) do NOT belong here —
+// they go above the Density to Linear node, per the project's
+// metric/aesthetic separation rule. Do not eyeball these sliders to
+// neutralize an image; that is the NamiColor failure mode.
+//
+// Strength 0 = bypass (unanchored), 1 = full anchor. For A/B only.
+
+DEFINE_UI_PARAMS(dminR, Dmin R, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 2.0, 0.001)
+DEFINE_UI_PARAMS(dminG, Dmin G, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 2.0, 0.001)
+DEFINE_UI_PARAMS(dminB, Dmin B, DCTLUI_SLIDER_FLOAT, 0.0, 0.0, 2.0, 0.001)
+DEFINE_UI_PARAMS(strength, Strength, DCTLUI_SLIDER_FLOAT, 1.0, 0.0, 1.0, 0.01)
+
+__DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B)
+{
+    float gainR = _exp10f(strength * dminR);
+    float gainG = _exp10f(strength * dminG);
+    float gainB = _exp10f(strength * dminB);
+    return make_float3(p_R * gainR, p_G * gainG, p_B * gainB);
+}
