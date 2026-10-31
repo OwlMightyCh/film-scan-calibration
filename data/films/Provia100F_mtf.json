@@ -1,0 +1,230 @@
+{
+ "title": "Provia100F modulation transfer function, traced from the datasheet chart",
+ "stock": "Provia100F",
+ "family": "E-6",
+ "source": {
+  "pdf": "Provia 100F.pdf",
+  "page_index": 5,
+  "datasheet_code": "AF3-036E",
+  "revision": "not recorded",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "Daylight",
+  "process_as_printed": "E-6/CR-56"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "MTF": {
+   "cycles_per_mm": [
+    2.402,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.544
+   ],
+   "response_pct": [
+    115.74,
+    116.15,
+    116.15,
+    116.15,
+    116.15,
+    116.15,
+    116.15,
+    115.74,
+    115.74,
+    115.74,
+    115.74,
+    115.74,
+    114.93,
+    114.53,
+    114.12,
+    113.32,
+    112.13,
+    110.57,
+    108.26,
+    105.62,
+    103.24,
+    97.24,
+    94.69,
+    89.96,
+    85.11,
+    79.5,
+    73.61,
+    66.88,
+    59.9,
+    53.18,
+    46.27,
+    40.02,
+    34.34,
+    29.12,
+    25.72
+   ],
+   "ink_hit": 0.995,
+   "merged_spans_cycles_per_mm": [
+    [
+     17.2,
+     17.7
+    ]
+   ],
+   "measured_fraction": 0.984
+  }
+ },
+ "summary": {
+  "MTF": {
+   "support_cycles_per_mm": [
+    2.4,
+    61.54
+   ],
+   "peak_response_pct": 116.1,
+   "chart_end": {
+    "cycles_per_mm": 61.5,
+    "response_pct": 25.7
+   },
+   "response_pct_at": {
+    "5": 116.0,
+    "10": 113.3,
+    "20": 93.7,
+    "30": 72.3,
+    "40": 50.6,
+    "50": 35.7,
+    "60": 26.2
+   },
+   "mtf50_cycles_per_mm": 40.0,
+   "mtf30_cycles_per_mm": 54.6,
+   "mtf20_cycles_per_mm": null
+  }
+ },
+ "digitization_audit": {
+  "route": "raster",
+  "render_dpi": 600,
+  "clip_device_pt": [
+   59,
+   434,
+   285,
+   618
+  ],
+  "frame_px": [
+   270.5,
+   55.5,
+   1785.5,
+   1284.5
+  ],
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.001536*x_px + -0.430571",
+   "gridlines_px": [
+    927.5,
+    1133.5,
+    1384.5,
+    1581.5
+   ],
+   "gridline_values": [
+    10,
+    20,
+    50,
+    100
+   ],
+   "gridline_fit_worst_px": 6.27
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    2,
+    150
+   ],
+   "device_to_data": "log10(response_pct) = -0.001528*y_px + 2.272071",
+   "gridlines_px": [
+    179.5,
+    278.5,
+    377.5,
+    514.5,
+    637.5,
+    834.0,
+    931.0,
+    1031.5
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5
+   ],
+   "gridline_fit_worst_px": 5.73
+  },
+  "label_check": {
+   "note": "raster sheet: printed numerals verified by LOOKING at the overlay, not by text extraction"
+  },
+  "label_assignment": {
+   "method": "right-end top-down order from the registry, entered by eye",
+   "order": [
+    "MTF"
+   ]
+  },
+  "glyph_components_removed": 41,
+  "line_width_px": 15.0,
+  "gridlines_excluded": null,
+  "trace_start": {
+   "column": 1445,
+   "cycles_per_mm": 61.5
+  },
+  "duplicate_fraction": {},
+  "ink_level_crossings_cycles_per_mm": {
+   "50": [
+    5.0,
+    39.2
+   ],
+   "30": [
+    5.0,
+    56.2
+   ],
+   "20": [
+    5.0
+   ]
+  },
+  "crossing_note": "columns where a track was dead-reckoned (crossing inside one line width, or a printed line shared by two tracks) are listed per channel in merged_spans; values there are interpolation, not measurement"
+ }
+}
