@@ -1,0 +1,490 @@
+{
+ "title": "V3200T modulation transfer function, traced from the datasheet chart",
+ "stock": "V3200T",
+ "family": "ECN-2",
+ "source": {
+  "pdf": "V3 200T.pdf",
+  "page_index": 2,
+  "datasheet_code": "H-1-5213",
+  "revision": "not recorded",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "3200K Tungsten",
+  "process_as_printed": "ECN-2"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "B": {
+   "cycles_per_mm": [
+    3.437,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    79.668
+   ],
+   "response_pct": [
+    113.28,
+    112.68,
+    108.26,
+    104.65,
+    104.65,
+    105.01,
+    105.1,
+    105.69,
+    106.2,
+    106.47,
+    106.94,
+    108.22,
+    108.56,
+    108.8,
+    109.28,
+    110.23,
+    109.75,
+    110.23,
+    108.8,
+    109.24,
+    106.17,
+    96.94,
+    94.68,
+    95.08,
+    90.99,
+    86.72,
+    81.76,
+    76.86,
+    72.88,
+    66.15,
+    59.87,
+    53.47,
+    47.13,
+    41.85,
+    39.34
+   ],
+   "ink_hit": 0.956,
+   "merged_spans_cycles_per_mm": [
+    [
+     3.4,
+     3.8
+    ],
+    [
+     4.2,
+     4.8
+    ],
+    [
+     5.2,
+     9.6
+    ],
+    [
+     10.4,
+     19.2
+    ],
+    [
+     20.7,
+     27.4
+    ],
+    [
+     46.5,
+     48.0
+    ],
+    [
+     64.3,
+     65.9
+    ]
+   ],
+   "measured_fraction": 0.314
+  },
+  "G": {
+   "cycles_per_mm": [
+    3.437,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    79.668
+   ],
+   "response_pct": [
+    120.99,
+    119.83,
+    111.37,
+    104.65,
+    104.65,
+    105.01,
+    105.1,
+    105.69,
+    106.2,
+    106.47,
+    106.94,
+    108.22,
+    108.56,
+    108.8,
+    109.28,
+    110.23,
+    109.75,
+    110.23,
+    108.8,
+    109.24,
+    106.17,
+    97.95,
+    94.68,
+    89.84,
+    83.81,
+    77.29,
+    68.97,
+    64.64,
+    58.9,
+    54.07,
+    48.46,
+    45.75,
+    42.07,
+    38.66,
+    37.03
+   ],
+   "ink_hit": 0.956,
+   "merged_spans_cycles_per_mm": [
+    [
+     3.4,
+     3.8
+    ],
+    [
+     4.2,
+     4.8
+    ],
+    [
+     5.2,
+     9.6
+    ],
+    [
+     10.4,
+     19.2
+    ],
+    [
+     20.7,
+     27.4
+    ],
+    [
+     37.8,
+     39.4
+    ],
+    [
+     54.5,
+     56.7
+    ]
+   ],
+   "measured_fraction": 0.311
+  },
+  "R": {
+   "cycles_per_mm": [
+    14.753,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    79.668
+   ],
+   "response_pct": [
+    98.41,
+    96.54,
+    94.73,
+    89.78,
+    85.38,
+    81.08,
+    75.94,
+    70.92,
+    63.45,
+    56.29,
+    48.2,
+    43.21,
+    37.79,
+    33.13,
+    28.8,
+    25.82,
+    22.65,
+    19.43,
+    18.68
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": [
+    [
+     14.8,
+     16.5
+    ],
+    [
+     28.0,
+     28.7
+    ],
+    [
+     54.5,
+     55.8
+    ],
+    [
+     74.2,
+     76.0
+    ]
+   ],
+   "measured_fraction": 0.84
+  }
+ },
+ "summary": {
+  "B": {
+   "support_cycles_per_mm": [
+    3.44,
+    79.67
+   ],
+   "peak_response_pct": 113.3,
+   "chart_end": {
+    "cycles_per_mm": 79.7,
+    "response_pct": 39.3
+   },
+   "response_pct_at": {
+    "5": 104.9,
+    "10": 108.6,
+    "20": 108.7,
+    "30": 93.3,
+    "40": 79.7,
+    "50": 67.6,
+    "60": 55.3
+   },
+   "mtf50_cycles_per_mm": 64.3,
+   "mtf30_cycles_per_mm": null,
+   "mtf20_cycles_per_mm": null
+  },
+  "G": {
+   "support_cycles_per_mm": [
+    3.44,
+    79.67
+   ],
+   "peak_response_pct": 121.0,
+   "chart_end": {
+    "cycles_per_mm": 79.7,
+    "response_pct": 37.0
+   },
+   "response_pct_at": {
+    "5": 104.9,
+    "10": 108.6,
+    "20": 108.7,
+    "30": 87.2,
+    "40": 67.0,
+    "50": 55.1,
+    "60": 46.9
+   },
+   "mtf50_cycles_per_mm": 54.4,
+   "mtf30_cycles_per_mm": null,
+   "mtf20_cycles_per_mm": null
+  },
+  "R": {
+   "support_cycles_per_mm": [
+    14.75,
+    79.67
+   ],
+   "peak_response_pct": 98.4,
+   "chart_end": {
+    "cycles_per_mm": 79.7,
+    "response_pct": 18.7
+   },
+   "response_pct_at": {
+    "20": 88.8,
+    "30": 67.5,
+    "40": 46.6,
+    "50": 34.1,
+    "60": 26.9
+   },
+   "mtf50_cycles_per_mm": 37.5,
+   "mtf30_cycles_per_mm": 54.4,
+   "mtf20_cycles_per_mm": 74.0
+  }
+ },
+ "digitization_audit": {
+  "route": "raster",
+  "render_dpi": 300,
+  "clip_device_pt": [
+   50,
+   202,
+   286,
+   402
+  ],
+  "frame_px": [
+   145.5,
+   119.0,
+   953.5,
+   731.0
+  ],
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    600
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.003438*x_px + -0.498782",
+   "gridlines_px": [
+    232.5,
+    283.5,
+    320.5,
+    348.5,
+    436.0,
+    523.5,
+    574.5,
+    639.0,
+    726.5,
+    814.5
+   ],
+   "gridline_values": [
+    2,
+    3,
+    4,
+    5,
+    10,
+    20,
+    30,
+    50,
+    100,
+    200
+   ],
+   "gridline_fit_worst_px": 0.35
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(response_pct) = -0.003760*y_px + 2.749190",
+   "gridlines_px": [
+    199.0,
+    240.5,
+    279.5,
+    338.5,
+    385.0,
+    465.5,
+    506.0,
+    545.0,
+    604.5
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5,
+    3
+   ],
+   "gridline_fit_worst_px": 0.39
+  },
+  "label_check": {
+   "note": "raster sheet: printed numerals verified by LOOKING at the overlay, not by text extraction"
+  },
+  "label_assignment": {
+   "method": "right-end top-down order from the registry, entered by eye",
+   "order": [
+    "B",
+    "G",
+    "R"
+   ]
+  },
+  "glyph_components_removed": 88,
+  "line_width_px": 5.0,
+  "gridlines_excluded": null,
+  "trace_start": {
+   "column": 698,
+   "cycles_per_mm": 79.7
+  },
+  "duplicate_fraction": {
+   "B/G": 0.61,
+   "B/R": 0.0,
+   "G/R": 0.0
+  },
+  "ink_level_crossings_cycles_per_mm": {
+   "50": [
+    38.0,
+    53.0,
+    62.5
+   ],
+   "30": [
+    54.8
+   ],
+   "20": [
+    74.7
+   ]
+  },
+  "crossing_note": "columns where a track was dead-reckoned (crossing inside one line width, or a printed line shared by two tracks) are listed per channel in merged_spans; values there are interpolation, not measurement"
+ }
+}

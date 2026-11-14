@@ -1,0 +1,613 @@
+{
+ "title": "EktachromeE100 modulation transfer function, traced from the datasheet chart",
+ "stock": "EktachromeE100",
+ "family": "E-6",
+ "source": {
+  "pdf": "Ektachrome E100.pdf",
+  "page_index": 2,
+  "datasheet_code": "E-4000",
+  "revision": "rev. 8-18",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "not stated on chart",
+  "process_as_printed": "E-6"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "B": {
+   "cycles_per_mm": [
+    2.548,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    81.558
+   ],
+   "response_pct": [
+    96.97,
+    96.91,
+    96.72,
+    96.64,
+    96.53,
+    96.39,
+    96.21,
+    95.98,
+    95.81,
+    95.55,
+    95.29,
+    95.02,
+    94.67,
+    94.79,
+    95.32,
+    94.88,
+    93.39,
+    91.13,
+    88.8,
+    86.9,
+    85.75,
+    86.19,
+    86.27,
+    83.58,
+    78.18,
+    73.54,
+    71.61,
+    67.79,
+    62.89,
+    57.95,
+    53.43,
+    49.13,
+    45.2,
+    42.1,
+    38.71,
+    34.87,
+    31.2,
+    28.32
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  },
+  "G": {
+   "cycles_per_mm": [
+    2.548,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    81.558
+   ],
+   "response_pct": [
+    99.33,
+    99.2,
+    98.68,
+    98.19,
+    97.71,
+    97.22,
+    96.71,
+    96.17,
+    95.57,
+    95.03,
+    94.38,
+    93.71,
+    93.07,
+    92.26,
+    91.51,
+    90.4,
+    88.48,
+    86.32,
+    84.15,
+    82.28,
+    81.05,
+    81.04,
+    80.7,
+    78.03,
+    72.69,
+    67.78,
+    64.18,
+    59.5,
+    54.23,
+    49.19,
+    44.49,
+    39.94,
+    35.79,
+    32.65,
+    29.01,
+    24.81,
+    20.96,
+    18.15
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  },
+  "R": {
+   "cycles_per_mm": [
+    2.548,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    81.558
+   ],
+   "response_pct": [
+    97.91,
+    97.65,
+    96.66,
+    95.67,
+    94.64,
+    93.59,
+    92.58,
+    91.63,
+    90.63,
+    89.59,
+    88.52,
+    87.4,
+    86.27,
+    85.09,
+    83.91,
+    82.11,
+    79.96,
+    77.48,
+    74.9,
+    72.57,
+    70.74,
+    69.66,
+    68.27,
+    64.88,
+    59.67,
+    54.33,
+    49.8,
+    44.36,
+    38.69,
+    33.58,
+    29.34,
+    25.73,
+    22.32,
+    19.0,
+    15.57,
+    12.4,
+    9.76,
+    7.94
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  }
+ },
+ "summary": {
+  "B": {
+   "support_cycles_per_mm": [
+    2.55,
+    81.56
+   ],
+   "peak_response_pct": 97.0,
+   "chart_end": {
+    "cycles_per_mm": 81.6,
+    "response_pct": 28.3
+   },
+   "response_pct_at": {
+    "5": 95.8,
+    "10": 94.9,
+    "20": 85.9,
+    "30": 70.2,
+    "40": 55.9,
+    "50": 46.0,
+    "60": 39.9,
+    "80": 28.9
+   },
+   "mtf50_cycles_per_mm": 45.5,
+   "mtf30_cycles_per_mm": 77.5,
+   "mtf20_cycles_per_mm": null
+  },
+  "G": {
+   "support_cycles_per_mm": [
+    2.55,
+    81.56
+   ],
+   "peak_response_pct": 99.3,
+   "chart_end": {
+    "cycles_per_mm": 81.6,
+    "response_pct": 18.2
+   },
+   "response_pct_at": {
+    "5": 95.7,
+    "10": 90.4,
+    "20": 80.3,
+    "30": 62.2,
+    "40": 47.1,
+    "50": 36.7,
+    "60": 30.3,
+    "80": 18.8
+   },
+   "mtf50_cycles_per_mm": 37.7,
+   "mtf30_cycles_per_mm": 60.4,
+   "mtf20_cycles_per_mm": 77.0
+  },
+  "R": {
+   "support_cycles_per_mm": [
+    2.55,
+    81.56
+   ],
+   "peak_response_pct": 97.9,
+   "chart_end": {
+    "cycles_per_mm": 81.6,
+    "response_pct": 7.9
+   },
+   "response_pct_at": {
+    "5": 90.9,
+    "10": 82.1,
+    "20": 67.7,
+    "30": 47.4,
+    "40": 31.6,
+    "50": 23.1,
+    "60": 16.7,
+    "80": 8.3
+   },
+   "mtf50_cycles_per_mm": 28.6,
+   "mtf30_cycles_per_mm": 41.5,
+   "mtf20_cycles_per_mm": 54.7
+  }
+ },
+ "digitization_audit": {
+  "route": "vector",
+  "frame_device_pt": [
+   357.643,
+   126.888,
+   560.09,
+   279.67
+  ],
+  "frame_drawn_as": "stroked rectangle or line path, PyMuPDF get_drawings()",
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    600
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.013725*x_pt + -4.908641",
+   "gridlines_pt": [
+    379.58,
+    392.42,
+    401.53,
+    408.58,
+    430.53,
+    452.42,
+    481.47,
+    503.37,
+    525.31
+   ],
+   "gridline_values": [
+    2,
+    3,
+    4,
+    5,
+    10,
+    20,
+    50,
+    100,
+    200
+   ],
+   "gridline_fit_worst_pt": 0.027
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(response_pct) = -0.015062*y_pt + 4.212557",
+   "gridlines_pt": [
+    146.92,
+    157.18,
+    166.89,
+    181.58,
+    193.3,
+    213.26,
+    223.59,
+    233.3,
+    247.99,
+    259.71
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5,
+    3,
+    2
+   ],
+   "gridline_fit_worst_pt": 0.03
+  },
+  "label_check": {
+   "numerals_checked": 23,
+   "worst_offset_pt": 1.23,
+   "rows": [
+    {
+     "axis": "y",
+     "value": 1.0,
+     "glyph_centre_pt": 279.22,
+     "model_pt": 279.68,
+     "offset_pt": -0.46
+    },
+    {
+     "axis": "y",
+     "value": 10.0,
+     "glyph_centre_pt": 212.06,
+     "model_pt": 213.29,
+     "offset_pt": -1.23
+    },
+    {
+     "axis": "y",
+     "value": 7.0,
+     "glyph_centre_pt": 223.71,
+     "model_pt": 223.57,
+     "offset_pt": 0.14
+    },
+    {
+     "axis": "y",
+     "value": 5.0,
+     "glyph_centre_pt": 234.06,
+     "model_pt": 233.28,
+     "offset_pt": 0.79
+    },
+    {
+     "axis": "y",
+     "value": 3.0,
+     "glyph_centre_pt": 248.18,
+     "model_pt": 248.0,
+     "offset_pt": 0.18
+    },
+    {
+     "axis": "y",
+     "value": 2.0,
+     "glyph_centre_pt": 259.48,
+     "model_pt": 259.7,
+     "offset_pt": -0.22
+    },
+    {
+     "axis": "y",
+     "value": 100.0,
+     "glyph_centre_pt": 146.89,
+     "model_pt": 146.9,
+     "offset_pt": -0.01
+    },
+    {
+     "axis": "y",
+     "value": 70.0,
+     "glyph_centre_pt": 157.87,
+     "model_pt": 157.18,
+     "offset_pt": 0.69
+    },
+    {
+     "axis": "y",
+     "value": 50.0,
+     "glyph_centre_pt": 167.29,
+     "model_pt": 166.88,
+     "offset_pt": 0.4
+    },
+    {
+     "axis": "y",
+     "value": 30.0,
+     "glyph_centre_pt": 181.67,
+     "model_pt": 181.61,
+     "offset_pt": 0.06
+    },
+    {
+     "axis": "y",
+     "value": 20.0,
+     "glyph_centre_pt": 192.96,
+     "model_pt": 193.3,
+     "offset_pt": -0.34
+    },
+    {
+     "axis": "y",
+     "value": 200.0,
+     "glyph_centre_pt": 127.48,
+     "model_pt": 126.91,
+     "offset_pt": 0.57
+    },
+    {
+     "axis": "x",
+     "value": 1.0,
+     "glyph_centre_pt": 357.28,
+     "model_pt": 357.65,
+     "offset_pt": -0.37
+    },
+    {
+     "axis": "x",
+     "value": 2.0,
+     "glyph_centre_pt": 378.95,
+     "model_pt": 379.59,
+     "offset_pt": -0.64
+    },
+    {
+     "axis": "x",
+     "value": 3.0,
+     "glyph_centre_pt": 392.95,
+     "model_pt": 392.42,
+     "offset_pt": 0.53
+    },
+    {
+     "axis": "x",
+     "value": 4.0,
+     "glyph_centre_pt": 401.29,
+     "model_pt": 401.52,
+     "offset_pt": -0.24
+    },
+    {
+     "axis": "x",
+     "value": 5.0,
+     "glyph_centre_pt": 408.62,
+     "model_pt": 408.58,
+     "offset_pt": 0.04
+    },
+    {
+     "axis": "x",
+     "value": 10.0,
+     "glyph_centre_pt": 431.56,
+     "model_pt": 430.52,
+     "offset_pt": 1.04
+    },
+    {
+     "axis": "x",
+     "value": 20.0,
+     "glyph_centre_pt": 453.23,
+     "model_pt": 452.45,
+     "offset_pt": 0.78
+    },
+    {
+     "axis": "x",
+     "value": 50.0,
+     "glyph_centre_pt": 481.9,
+     "model_pt": 481.45,
+     "offset_pt": 0.45
+    },
+    {
+     "axis": "x",
+     "value": 100.0,
+     "glyph_centre_pt": 503.17,
+     "model_pt": 503.38,
+     "offset_pt": -0.21
+    },
+    {
+     "axis": "x",
+     "value": 200.0,
+     "glyph_centre_pt": 525.48,
+     "model_pt": 525.31,
+     "offset_pt": 0.16
+    },
+    {
+     "axis": "x",
+     "value": 600.0,
+     "glyph_centre_pt": 560.37,
+     "model_pt": 560.08,
+     "offset_pt": 0.3
+    }
+   ],
+   "note": "glyph centre vs model; centring skew of 1-2 pt is the text box, not the axis (DIGITISING.md lesson 6)"
+  },
+  "label_assignment": {
+   "method": "letters paired to curve ends by rank of end y",
+   "rows": [
+    {
+     "letter": "B",
+     "letter_centre_y_pt": 176.79,
+     "curve_end_y_pt": 183.28
+    },
+    {
+     "letter": "G",
+     "letter_centre_y_pt": 189.1,
+     "curve_end_y_pt": 196.1
+    },
+    {
+     "letter": "R",
+     "letter_centre_y_pt": 209.06,
+     "curve_end_y_pt": 219.95
+    }
+   ]
+  },
+  "bezier_note": "cubic segments evaluated at 25 points; line segments taken as drawn"
+ }
+}
