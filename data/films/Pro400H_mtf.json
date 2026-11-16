@@ -1,0 +1,218 @@
+{
+ "title": "Pro400H modulation transfer function, traced from the datasheet chart",
+ "stock": "Pro400H",
+ "family": "C-41",
+ "source": {
+  "pdf": "Fujifilm Pro 400H.pdf",
+  "page_index": 7,
+  "datasheet_code": "AF3-176E",
+  "revision": "not recorded",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "Daylight",
+  "process_as_printed": "C-41"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "MTF": {
+   "cycles_per_mm": [
+    2.359,
+    2.371,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    82.54,
+    90.852,
+    100.0,
+    105.435
+   ],
+   "response_pct": [
+    111.2,
+    111.2,
+    111.17,
+    111.13,
+    111.08,
+    111.01,
+    110.9,
+    110.75,
+    110.55,
+    110.27,
+    109.9,
+    109.43,
+    108.84,
+    108.11,
+    107.22,
+    106.15,
+    104.89,
+    103.4,
+    101.68,
+    99.72,
+    97.51,
+    95.05,
+    92.35,
+    89.42,
+    86.28,
+    82.96,
+    79.48,
+    75.89,
+    72.22,
+    68.37,
+    64.33,
+    60.16,
+    55.91,
+    51.64,
+    47.39,
+    43.19,
+    39.08,
+    35.07,
+    31.16,
+    27.35,
+    23.6,
+    21.53
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  }
+ },
+ "summary": {
+  "MTF": {
+   "support_cycles_per_mm": [
+    2.36,
+    105.43
+   ],
+   "peak_response_pct": 111.2,
+   "chart_end": {
+    "cycles_per_mm": 105.4,
+    "response_pct": 21.5
+   },
+   "response_pct_at": {
+    "5": 110.3,
+    "10": 104.9,
+    "20": 88.7,
+    "30": 74.2,
+    "40": 62.5,
+    "50": 52.6,
+    "60": 44.5,
+    "80": 32.4,
+    "100": 23.6
+   },
+   "mtf50_cycles_per_mm": 53.0,
+   "mtf30_cycles_per_mm": 84.9,
+   "mtf20_cycles_per_mm": null
+  }
+ },
+ "digitization_audit": {
+  "route": "vector",
+  "frame_device_pt": [
+   85.803,
+   374.289,
+   283.908,
+   538.912
+  ],
+  "frame_drawn_as": "stroked rectangle or line path, PyMuPDF get_drawings()",
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.012239*x_pt + -1.129382",
+   "gridlines_pt": [
+    149.31,
+    173.96,
+    199.11,
+    230.32,
+    256.04
+   ],
+   "gridline_values": [
+    5,
+    10,
+    20,
+    50,
+    100
+   ],
+   "gridline_fit_worst_pt": 0.778
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    2,
+    150
+   ],
+   "device_to_data": "log10(response_pct) = -0.011418*y_pt + 6.449927",
+   "gridlines_pt": [
+    389.7,
+    403.54,
+    415.82,
+    435.31,
+    451.58,
+    477.22,
+    490.51,
+    503.68,
+    523.29
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5,
+    3
+   ],
+   "gridline_fit_worst_pt": 0.625
+  },
+  "label_check": {
+   "numerals_checked": 0,
+   "worst_offset_pt": null,
+   "rows": [],
+   "note": "no numerals extractable as text on this sheet; axis rests on the gridline fit and the overlay LOOK"
+  },
+  "label_assignment": {
+   "method": "single unlabelled curve",
+   "curves": 1
+  },
+  "bezier_note": "cubic segments evaluated at 25 points; line segments taken as drawn"
+ }
+}

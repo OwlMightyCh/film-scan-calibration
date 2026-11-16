@@ -1,0 +1,619 @@
+{
+ "title": "Kodak2393 modulation transfer function, traced from the datasheet chart",
+ "stock": "Kodak2393",
+ "family": "ECP-2B",
+ "source": {
+  "pdf": "Kodak 2393.pdf",
+  "page_index": 3,
+  "datasheet_code": "H-1-2393t",
+  "revision": "Sep 1998",
+  "chart": "Modulation Transfer Function",
+  "exposure_as_printed": "not stated on chart",
+  "process_as_printed": "ECP-2B"
+ },
+ "units": {
+  "x": "cycles per mm (spatial frequency, log axis)",
+  "y": "response, percent (log axis)"
+ },
+ "grid": {
+  "per_decade": 24,
+  "note": "fixed log grid inside each curve's traced support plus the two traced endpoints; nothing is extrapolated past the printed curve end"
+ },
+ "curves": {
+  "R": {
+   "cycles_per_mm": [
+    2.437,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    82.54,
+    84.331
+   ],
+   "response_pct": [
+    105.21,
+    103.89,
+    102.06,
+    100.22,
+    98.38,
+    96.6,
+    94.84,
+    93.09,
+    91.36,
+    89.69,
+    88.02,
+    86.39,
+    84.8,
+    83.22,
+    81.76,
+    80.3,
+    78.97,
+    77.67,
+    76.51,
+    75.37,
+    74.4,
+    73.43,
+    72.6,
+    71.78,
+    70.98,
+    70.19,
+    69.36,
+    68.49,
+    67.6,
+    66.55,
+    65.51,
+    64.22,
+    62.9,
+    61.28,
+    59.54,
+    57.31,
+    54.82,
+    51.34,
+    50.56
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  },
+  "G": {
+   "cycles_per_mm": [
+    2.437,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    82.54,
+    82.991
+   ],
+   "response_pct": [
+    108.63,
+    108.3,
+    107.85,
+    107.4,
+    106.89,
+    105.93,
+    104.97,
+    103.99,
+    102.54,
+    101.09,
+    99.51,
+    97.72,
+    95.91,
+    93.95,
+    91.98,
+    90.09,
+    88.19,
+    86.64,
+    85.13,
+    84.11,
+    83.16,
+    82.73,
+    82.31,
+    82.2,
+    82.09,
+    81.99,
+    81.89,
+    81.65,
+    81.31,
+    80.81,
+    79.99,
+    79.1,
+    77.54,
+    75.98,
+    73.52,
+    70.97,
+    67.4,
+    63.64,
+    63.43
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  },
+  "B": {
+   "cycles_per_mm": [
+    2.422,
+    2.61,
+    2.873,
+    3.162,
+    3.481,
+    3.831,
+    4.217,
+    4.642,
+    5.109,
+    5.623,
+    6.19,
+    6.813,
+    7.499,
+    8.254,
+    9.085,
+    10.0,
+    11.007,
+    12.115,
+    13.335,
+    14.678,
+    16.156,
+    17.783,
+    19.573,
+    21.544,
+    23.714,
+    26.102,
+    28.73,
+    31.623,
+    34.807,
+    38.312,
+    42.17,
+    46.416,
+    51.09,
+    56.234,
+    61.897,
+    68.129,
+    74.989,
+    82.54,
+    83.191
+   ],
+   "response_pct": [
+    100.95,
+    99.52,
+    97.69,
+    95.86,
+    94.03,
+    92.45,
+    90.94,
+    89.44,
+    88.02,
+    86.73,
+    85.45,
+    84.2,
+    82.97,
+    81.72,
+    80.38,
+    79.01,
+    77.33,
+    75.6,
+    73.46,
+    71.23,
+    68.61,
+    65.94,
+    63.02,
+    60.11,
+    57.16,
+    54.21,
+    51.38,
+    48.6,
+    45.91,
+    43.37,
+    40.85,
+    38.59,
+    36.34,
+    34.32,
+    32.34,
+    30.62,
+    28.99,
+    27.62,
+    27.5
+   ],
+   "ink_hit": 1.0,
+   "merged_spans_cycles_per_mm": []
+  }
+ },
+ "summary": {
+  "R": {
+   "support_cycles_per_mm": [
+    2.44,
+    84.33
+   ],
+   "peak_response_pct": 105.2,
+   "chart_end": {
+    "cycles_per_mm": 84.3,
+    "response_pct": 50.6
+   },
+   "response_pct_at": {
+    "5": 91.7,
+    "10": 80.3,
+    "20": 72.4,
+    "30": 69.0,
+    "40": 66.1,
+    "50": 63.2,
+    "60": 60.1,
+    "80": 52.5
+   },
+   "mtf50_cycles_per_mm": null,
+   "mtf30_cycles_per_mm": null,
+   "mtf20_cycles_per_mm": null
+  },
+  "G": {
+   "support_cycles_per_mm": [
+    2.44,
+    82.99
+   ],
+   "peak_response_pct": 108.6,
+   "chart_end": {
+    "cycles_per_mm": 83.0,
+    "response_pct": 63.4
+   },
+   "response_pct_at": {
+    "5": 102.9,
+    "10": 90.1,
+    "20": 82.3,
+    "30": 81.8,
+    "40": 80.4,
+    "50": 77.9,
+    "60": 74.3,
+    "80": 64.9
+   },
+   "mtf50_cycles_per_mm": null,
+   "mtf30_cycles_per_mm": null,
+   "mtf20_cycles_per_mm": null
+  },
+  "B": {
+   "support_cycles_per_mm": [
+    2.42,
+    83.19
+   ],
+   "peak_response_pct": 100.9,
+   "chart_end": {
+    "cycles_per_mm": 83.2,
+    "response_pct": 27.5
+   },
+   "response_pct_at": {
+    "5": 88.3,
+    "10": 79.0,
+    "20": 62.4,
+    "30": 50.1,
+    "40": 42.2,
+    "50": 36.8,
+    "60": 33.0,
+    "80": 28.1
+   },
+   "mtf50_cycles_per_mm": 30.0,
+   "mtf30_cycles_per_mm": 70.4,
+   "mtf20_cycles_per_mm": null
+  }
+ },
+ "digitization_audit": {
+  "route": "vector",
+  "frame_device_pt": [
+   350.589,
+   400.781,
+   552.886,
+   553.78
+  ],
+  "frame_drawn_as": "stroked rectangle or line path, PyMuPDF get_drawings()",
+  "x_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    600
+   ],
+   "device_to_data": "log10(cycles_per_mm) = 0.013808*x_pt + -4.838249",
+   "gridlines_pt": [
+    372.26,
+    384.91,
+    394.24,
+    400.86,
+    422.24,
+    444.81,
+    473.71,
+    495.39,
+    516.76
+   ],
+   "gridline_values": [
+    2,
+    3,
+    4,
+    5,
+    10,
+    20,
+    50,
+    100,
+    200
+   ],
+   "gridline_fit_worst_pt": 0.568
+  },
+  "y_axis": {
+   "scale": "log10",
+   "printed_range": [
+    1,
+    200
+   ],
+   "device_to_data": "log10(response_pct) = -0.014936*y_pt + 8.273629",
+   "gridlines_pt": [
+    420.04,
+    430.58,
+    440.22,
+    454.98,
+    466.73,
+    486.91,
+    497.15,
+    507.39,
+    521.55,
+    534.2
+   ],
+   "gridline_values": [
+    100,
+    70,
+    50,
+    30,
+    20,
+    10,
+    7,
+    5,
+    3,
+    2
+   ],
+   "gridline_fit_worst_pt": 0.442
+  },
+  "label_check": {
+   "numerals_checked": 23,
+   "worst_offset_pt": 1.27,
+   "rows": [
+    {
+     "axis": "x",
+     "value": 100.0,
+     "glyph_centre_pt": 496.49,
+     "model_pt": 495.22,
+     "offset_pt": 1.27
+    },
+    {
+     "axis": "x",
+     "value": 1.0,
+     "glyph_centre_pt": 350.93,
+     "model_pt": 350.38,
+     "offset_pt": 0.55
+    },
+    {
+     "axis": "x",
+     "value": 2.0,
+     "glyph_centre_pt": 372.37,
+     "model_pt": 372.18,
+     "offset_pt": 0.19
+    },
+    {
+     "axis": "x",
+     "value": 3.0,
+     "glyph_centre_pt": 385.36,
+     "model_pt": 384.94,
+     "offset_pt": 0.42
+    },
+    {
+     "axis": "x",
+     "value": 4.0,
+     "glyph_centre_pt": 394.27,
+     "model_pt": 393.98,
+     "offset_pt": 0.29
+    },
+    {
+     "axis": "x",
+     "value": 5.0,
+     "glyph_centre_pt": 401.34,
+     "model_pt": 401.0,
+     "offset_pt": 0.33
+    },
+    {
+     "axis": "x",
+     "value": 10.0,
+     "glyph_centre_pt": 423.3,
+     "model_pt": 422.8,
+     "offset_pt": 0.49
+    },
+    {
+     "axis": "x",
+     "value": 20.0,
+     "glyph_centre_pt": 445.25,
+     "model_pt": 444.6,
+     "offset_pt": 0.65
+    },
+    {
+     "axis": "x",
+     "value": 50.0,
+     "glyph_centre_pt": 474.25,
+     "model_pt": 473.42,
+     "offset_pt": 0.83
+    },
+    {
+     "axis": "x",
+     "value": 200.0,
+     "glyph_centre_pt": 518.19,
+     "model_pt": 517.02,
+     "offset_pt": 1.16
+    },
+    {
+     "axis": "x",
+     "value": 600.0,
+     "glyph_centre_pt": 551.82,
+     "model_pt": 551.58,
+     "offset_pt": 0.24
+    },
+    {
+     "axis": "y",
+     "value": 10.0,
+     "glyph_centre_pt": 486.38,
+     "model_pt": 486.98,
+     "offset_pt": -0.6
+    },
+    {
+     "axis": "y",
+     "value": 1.0,
+     "glyph_centre_pt": 553.26,
+     "model_pt": 553.93,
+     "offset_pt": -0.68
+    },
+    {
+     "axis": "y",
+     "value": 2.0,
+     "glyph_centre_pt": 534.07,
+     "model_pt": 533.78,
+     "offset_pt": 0.29
+    },
+    {
+     "axis": "y",
+     "value": 5.0,
+     "glyph_centre_pt": 507.94,
+     "model_pt": 507.14,
+     "offset_pt": 0.8
+    },
+    {
+     "axis": "y",
+     "value": 3.0,
+     "glyph_centre_pt": 522.22,
+     "model_pt": 521.99,
+     "offset_pt": 0.23
+    },
+    {
+     "axis": "y",
+     "value": 7.0,
+     "glyph_centre_pt": 497.44,
+     "model_pt": 497.35,
+     "offset_pt": 0.08
+    },
+    {
+     "axis": "y",
+     "value": 30.0,
+     "glyph_centre_pt": 454.95,
+     "model_pt": 455.04,
+     "offset_pt": -0.09
+    },
+    {
+     "axis": "y",
+     "value": 20.0,
+     "glyph_centre_pt": 466.96,
+     "model_pt": 466.83,
+     "offset_pt": 0.13
+    },
+    {
+     "axis": "y",
+     "value": 100.0,
+     "glyph_centre_pt": 419.62,
+     "model_pt": 420.03,
+     "offset_pt": -0.41
+    },
+    {
+     "axis": "y",
+     "value": 70.0,
+     "glyph_centre_pt": 430.88,
+     "model_pt": 430.4,
+     "offset_pt": 0.48
+    },
+    {
+     "axis": "y",
+     "value": 50.0,
+     "glyph_centre_pt": 440.35,
+     "model_pt": 440.19,
+     "offset_pt": 0.16
+    },
+    {
+     "axis": "y",
+     "value": 200.0,
+     "glyph_centre_pt": 400.26,
+     "model_pt": 399.88,
+     "offset_pt": 0.38
+    }
+   ],
+   "note": "glyph centre vs model; centring skew of 1-2 pt is the text box, not the axis (DIGITISING.md lesson 6)"
+  },
+  "label_assignment": {
+   "method": "letters paired to curve ends by rank of end y",
+   "rows": [
+    {
+     "letter": "G",
+     "letter_centre_y_pt": 430.22,
+     "curve_end_y_pt": 433.27
+    },
+    {
+     "letter": "R",
+     "letter_centre_y_pt": 440.32,
+     "curve_end_y_pt": 439.86
+    },
+    {
+     "letter": "B",
+     "letter_centre_y_pt": 456.14,
+     "curve_end_y_pt": 457.56
+    }
+   ]
+  },
+  "bezier_note": "line segments taken as drawn; the curves carry no cubic and are told from the gridlines by stroke width (>= 0.60 pt)"
+ }
+}
